@@ -1,0 +1,6 @@
+graph.json
+nodes.full.json
+_check.js
+__pycache__/
+*.pyc
+.DS_Store

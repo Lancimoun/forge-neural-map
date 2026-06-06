@@ -1,0 +1,15 @@
+server {
+    listen ${PORT};
+    server_name _;
+    root /usr/share/nginx/html;
+    gzip on;
+    gzip_types application/json application/javascript text/css text/html;
+    gzip_min_length 1024;
+    location / {
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+    location = /graph.json {
+        add_header Cache-Control "public, max-age=3600";
+    }
+}
