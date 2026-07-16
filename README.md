@@ -1,5 +1,8 @@
 # FORGE · Neural Map — The mind of Maxima
 
+[![CI](https://github.com/Lancimoun/forge-neural-map/actions/workflows/ci.yml/badge.svg)](https://github.com/Lancimoun/forge-neural-map/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 > An explorable 3D **universe of an AI's mind**, narrated by the AI herself.
 
 **▶ Live demo:** https://forge-neural-map-production.up.railway.app  *(sound on)*

@@ -1,0 +1,28 @@
+name: Neural Map CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  claims-match-the-data:
+    # nodes.json is BAKED output: bake.py regenerates it from a private
+    # knowledge-graph of a codebase that keeps changing. Every re-bake moves the
+    # numbers; the README keeps the old ones; and the repo — plus Lance's GitHub
+    # profile, which quotes the same figures — starts advertising a count that no
+    # longer describes the file next to it. A stale number renders exactly like a
+    # fresh one, so nothing surfaces it.
+    #
+    # Ground truth is the arrays. meta and the README are both *claims* about
+    # them, and both are checked against the arrays rather than against each
+    # other — checking prose against meta alone would let them be wrong together.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # Stdlib only, no install: the demo is vanilla Three.js and the bake is
+      # pure Python, so CI needs nothing either.
+      - name: README + meta must match nodes.json
+        run: python -m unittest discover tests -v
