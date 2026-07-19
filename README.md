@@ -15,8 +15,10 @@ I took **Maxima** — a production AI agent built at [FORGE](https://forge-landi
 - **2,778 stars · 7,295 connections · 157 systems** — every function and file in her code, mapped from a real knowledge graph.
 - **Five scales of exploration:** fly the galaxy → warp into a star → orbit its planets → drop to a planet's surface → zoom out to a universe of sibling galaxies (Memory, Voice, Reasoning, Soul, Dreams).
 - **Maxima narrates it** — a cinematic, voiced guide (Web Speech) that welcomes you and explains what each part of her is.
+- **Watch Maxima think** — six guided prompts illuminate real routing paths; optional live mode stays private and key-gated in the browser.
 - **The Neural Web** — toggle the real 7,295 connections and watch her mind light up as a firing brain.
-- Hidden discoveries, a codex, comets, a black hole at the core, **free-flight** (WASD), a cinematic record mode, an evolving procedural score, saved progress, and deep-link sharing.
+- **Accessible search and flight telemetry** — a persistent search label, announced results, keyboard flight state, live velocity/range/vector readouts, responsive controls, and reduced-motion protection.
+- Hidden discoveries, a visitor constellation, a codex, comets, a black hole at the core, **free-flight** (WASD), a cinematic record mode, an evolving procedural score, saved progress, and deep-link sharing.
 
 ## How it's built
 - **Vanilla three.js (r128)** + custom **GLSL vertex shaders** for the live orbital animation — no game engine.
@@ -24,6 +26,7 @@ I took **Maxima** — a production AI agent built at [FORGE](https://forge-landi
 - **UnrealBloom** + **ACES** filmic tone-mapping for the cinematic look.
 - Procedural ambient score + narration via the **Web Audio** & **Web Speech** APIs.
 - Shipped as a static site (nginx) on **Railway**.
+- A stdlib-only regression suite locks the 2,778-node truth claims, production interaction hooks, accessible search, and cinematic flight contracts.
 
 > Note: the raw `graph.json` (the source knowledge-graph of the private codebase) isn't included — `nodes.json` is the baked, public-facing output that powers the demo.
 

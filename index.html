@@ -13,6 +13,7 @@
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://forge-neural-map-production.up.railway.app/" />
+<link rel="icon" type="image/png" href="og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="The mind of Maxima — FORGE Neural Map" />
 <meta name="twitter:description" content="2,778 stars · 7,295 connections · 157 systems. An interactive 3D galaxy of an AI's mind." />
@@ -23,6 +24,49 @@
   html,body{height:100%;overflow:hidden;background:#02030a;font-family:'Inter',system-ui,-apple-system,sans-serif;color:#f0ece4}
   #c{position:fixed;inset:0;display:block;cursor:grab}#c:active{cursor:grabbing}
   #vignette{position:fixed;inset:0;z-index:6;pointer-events:none;background:radial-gradient(ellipse 75% 75% at 50% 48%,transparent 50%,rgba(2,3,10,.5) 100%)}
+  /* Ask Maxima / Watch her think */
+  #askBtn{position:fixed;top:64px;left:50%;transform:translateX(-50%);z-index:14;display:flex;align-items:center;gap:6px;padding:9px 18px;border-radius:999px;cursor:pointer;
+    border:1px solid rgba(124,108,255,.5);background:rgba(20,16,40,.6);backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:700;letter-spacing:.01em;
+    box-shadow:0 0 22px rgba(124,108,255,.25);animation:askpulse 3s ease-in-out infinite;transition:transform .2s}
+  #askBtn:hover{transform:translateX(-50%) translateY(-1px);border-color:#7c6cff}#askBtn .aw{color:rgba(180,170,255,.85);font-weight:500}
+  @keyframes askpulse{0%,100%{box-shadow:0 0 18px rgba(124,108,255,.2)}50%{box-shadow:0 0 30px rgba(124,108,255,.4)}}
+  #askPanel{position:fixed;top:50%;left:50%;transform:translate(-50%,-46%);z-index:24;width:min(440px,92vw);opacity:0;pointer-events:none;transition:all .35s ease;
+    background:rgba(10,9,20,.95);backdrop-filter:blur(16px);border:1px solid rgba(124,108,255,.35);border-radius:18px;padding:26px 26px 20px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  #askPanel.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+  #askPanel .askClose{position:absolute;top:16px;right:20px;font-size:18px;color:rgba(255,255,255,.55);cursor:pointer}
+  #askPanel .askHead{font-size:20px;font-weight:900;background:linear-gradient(135deg,#9f8cff,#f5a623);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  #askPanel .askSub{margin-top:8px;font-size:12.5px;line-height:1.5;color:rgba(240,236,228,.65)}
+  #askPanel .askList{margin-top:16px;display:flex;flex-direction:column;gap:8px;max-height:50vh;overflow-y:auto}
+  #askPanel .askChip{padding:11px 14px;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(240,236,228,.9);font-size:13px;font-weight:600;cursor:pointer;transition:all .18s}
+  #askPanel .askChip:hover{border-color:#7c6cff;background:rgba(124,108,255,.12);color:#fff;transform:translateX(2px)}
+  #askPanel .askFoot{margin-top:14px;font-size:10.5px;letter-spacing:.04em;color:rgba(240,236,228,.4);text-align:center}
+  #starBtn{position:fixed;bottom:24px;left:24px;z-index:23;padding:11px 18px;border-radius:13px;border:1px solid rgba(255,200,90,.35);background:rgba(255,180,60,.12);color:#ffe6b0;font-weight:800;font-size:13.5px;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px)}
+  #starBtn:hover{background:rgba(255,180,60,.22);border-color:#ffc24a;transform:translateY(-2px)}
+  #starPanel{position:fixed;top:50%;left:50%;transform:translate(-50%,-46%);z-index:24;width:min(420px,92vw);opacity:0;pointer-events:none;transition:all .35s;background:rgba(10,8,16,.92);border:1px solid rgba(255,200,90,.2);border-radius:20px;padding:26px 26px 22px;backdrop-filter:blur(16px)}
+  #starPanel.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+  #starPanel input,#starPanel textarea{width:100%;margin-top:12px;padding:11px 13px;border-radius:11px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#f0ece4;font-size:14px;font-family:inherit;outline:none;resize:none}
+  #starPanel textarea{height:64px}
+  #starPanel input:focus,#starPanel textarea:focus{border-color:#ffc24a}
+  #starGo{width:100%;margin-top:14px;padding:12px;border-radius:11px;border:none;background:linear-gradient(135deg,#ffb84a,#ff8a4a);color:#1a1208;font-weight:800;font-size:14px;cursor:pointer}
+  .starMsgBox{margin-top:10px;font-size:12.5px;text-align:center;color:#ffd9a0;min-height:16px}
+  .starRecent{margin-top:14px;max-height:130px;overflow-y:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:10px}
+  .starRecent .sr{font-size:12px;color:rgba(240,236,228,.7);margin:6px 0;line-height:1.4}
+  .starRecent .sr b{color:#ffc24a;font-weight:700}
+  #askPanel .askLiveRow{margin-top:14px;display:flex;gap:8px}
+  #askPanel #askLiveIn{flex:1;min-width:0;padding:11px 13px;border-radius:11px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#f0ece4;font-size:13px;font-family:inherit;outline:none}
+  #askPanel #askLiveIn:focus{border-color:#7c6cff;background:rgba(124,108,255,.1)}
+  #askPanel #askLiveIn::placeholder{color:rgba(240,236,228,.4)}
+  #askPanel #askLiveGo{padding:0 14px;border-radius:11px;border:1px solid rgba(255,90,90,.4);background:rgba(255,70,70,.14);color:#ffd9d9;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .18s}
+  #askPanel #askLiveGo:hover{background:rgba(255,70,70,.26);border-color:#ff5a5a;color:#fff}
+  #askPanel .askLiveNote{margin-top:9px;font-size:10.5px;line-height:1.5;color:rgba(240,236,228,.5);text-align:center}
+  #askPanel .askLiveNote a{color:#9f8cff;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+  #thoughtHUD{position:fixed;top:64px;left:32px;z-index:14;max-width:min(420px,80vw);opacity:0;transform:translateY(-6px);pointer-events:none;transition:all .4s ease;
+    background:rgba(10,9,20,.7);backdrop-filter:blur(10px);border:1px solid rgba(124,108,255,.35);border-left:3px solid #7c6cff;border-radius:12px;padding:14px 17px}
+  #thoughtHUD.show{opacity:1;transform:translateY(0)}
+  #thoughtHUD .thQ{font-size:14px;font-weight:800;color:#fff;line-height:1.3}
+  #thoughtHUD .thRoute{margin-top:8px;font-size:12px;font-weight:700;color:#9f8cff}
+  #thoughtHUD .thTools{margin-top:5px;font-size:11.5px;color:rgba(240,236,228,.7);font-family:ui-monospace,Menlo,monospace;line-height:1.5;word-break:break-word}
+  #thoughtHUD .thMem{margin-top:5px;font-size:11.5px;color:#f5a623;font-weight:700}
   #galNames .gn{position:fixed;z-index:9;pointer-events:none;transform:translate(-50%,-160%);font-size:12px;font-weight:800;letter-spacing:.14em;
     color:rgba(255,255,255,.9);text-shadow:0 1px 8px #000,0 0 4px #000;white-space:nowrap;opacity:0;transition:opacity .4s}
   #galNames .gn .gnDot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:middle;box-shadow:0 0 9px currentColor}
@@ -132,8 +176,11 @@
   #dock button.act{background:rgba(245,166,35,.14);border-color:#f5a623;color:#f5a623}
   #search{position:fixed;top:24px;left:50%;transform:translate(-50%,-14px);z-index:20;width:min(440px,90vw);opacity:0;pointer-events:none;transition:all .3s ease}
   #search.open{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+  #search .searchLabel{display:block;width:max-content;margin:0 0 7px 10px;padding:5px 9px;border:1px solid rgba(245,166,35,.25);border-radius:999px;
+        background:rgba(8,9,16,.76);color:#f5a623;font-size:9px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;backdrop-filter:blur(8px)}
   #search input{width:100%;padding:13px 18px;border-radius:12px;border:1px solid rgba(245,166,35,.45);background:rgba(8,9,16,.93);
         backdrop-filter:blur(10px);color:#fff;font-size:14px;outline:none;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+  #search input:focus{border-color:#f5a623;box-shadow:0 0 0 3px rgba(245,166,35,.12),0 12px 40px rgba(0,0,0,.5)}
   #sResults{margin-top:7px;display:flex;flex-direction:column;gap:4px;max-height:46vh;overflow-y:auto}
   #sResults .sr{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:9px;background:rgba(8,9,16,.85);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:all .15s}
   #sResults .sr:hover{border-color:rgba(245,166,35,.5);background:rgba(245,166,35,.08)}
@@ -151,9 +198,27 @@
   #reticle::before{content:'';position:absolute;inset:5px;border:1px solid rgba(245,166,35,.35);border-radius:50%}
   #warp{position:fixed;inset:0;z-index:31;pointer-events:none;opacity:0;transition:opacity .15s}
   body.cinematic .overlay,body.cinematic #dock,body.cinematic #snd,body.cinematic .cta,body.cinematic #infoBtn,body.cinematic .hint,body.cinematic .legend,body.cinematic #scale,body.cinematic #discChip,body.cinematic #tourbar{opacity:0!important;pointer-events:none!important;transition:opacity .5s ease}
+  body.flight-active .overlay,body.flight-active .legend,body.flight-active #askBtn,body.flight-active #starBtn,body.flight-active .cta,body.flight-active #snd,body.flight-active #infoBtn,body.flight-active #discChip,body.flight-active #skipIntro,body.flight-active #scale,body.flight-active #guide,body.flight-active #galNames{opacity:0!important;pointer-events:none!important;transition:opacity .35s ease}
   #flyHint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:12;padding:9px 18px;border-radius:999px;border:1px solid rgba(120,180,255,.4);
     background:rgba(8,9,16,.6);backdrop-filter:blur(8px);color:rgba(220,232,255,.9);font-size:12px;font-weight:600;letter-spacing:.02em;opacity:0;pointer-events:none;transition:opacity .35s}
   #flyHint.show{opacity:1}#flyHint b{color:#9fd0ff}
+  #flightTrail{position:fixed;inset:-24%;z-index:8;pointer-events:none;opacity:0;transform:scale(.48) rotate(0deg);
+    background:repeating-conic-gradient(from 0deg at 50% 50%,transparent 0deg 4.6deg,rgba(116,185,255,.28) 4.75deg,rgba(255,255,255,.7) 4.82deg,transparent 5.05deg 9.2deg);
+    -webkit-mask-image:radial-gradient(circle at center,transparent 0 13%,#000 34%,rgba(0,0,0,.76) 54%,transparent 77%);mask-image:radial-gradient(circle at center,transparent 0 13%,#000 34%,rgba(0,0,0,.76) 54%,transparent 77%);
+    mix-blend-mode:screen;transition:opacity .32s ease,transform .32s ease;will-change:opacity,transform}
+  body.flight-active #flightTrail.moving{opacity:.18;transform:scale(1.06) rotate(1deg);animation:flightRush 1.15s linear infinite}
+  body.flight-active #flightTrail.moving.boost{opacity:.34;transform:scale(1.35) rotate(1deg);animation-duration:.42s}
+  @keyframes flightRush{to{transform:scale(1.22) rotate(2deg)}}
+  #flightDeck{position:fixed;left:32px;bottom:96px;z-index:12;min-width:250px;padding:14px 15px 13px;border:1px solid rgba(126,193,255,.28);border-radius:14px;
+    background:linear-gradient(145deg,rgba(7,12,24,.84),rgba(8,9,16,.58));box-shadow:0 16px 48px rgba(0,0,0,.36),inset 0 1px rgba(255,255,255,.05);backdrop-filter:blur(13px);
+    opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .3s ease,transform .3s ease}
+  #flightDeck.show{opacity:1;transform:translateY(0)}
+  .fdHead{display:flex;align-items:center;gap:8px;margin-bottom:11px;color:#9fd0ff;font-size:9px;font-weight:900;letter-spacing:.24em;text-transform:uppercase}
+  .fdHead::before{content:'';width:7px;height:7px;border-radius:50%;background:#70c7ff;box-shadow:0 0 12px #70c7ff;animation:flightPulse 1.8s ease-in-out infinite}
+  @keyframes flightPulse{50%{opacity:.35;transform:scale(.68)}}
+  .fdGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.fdCell{min-width:0}.fdKey{display:block;margin-bottom:4px;color:rgba(214,230,255,.44);font-size:8px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+  .fdVal{display:block;color:#eff7ff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;font-weight:700;white-space:nowrap}
+  .srOnly{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
   #planetCard{position:fixed;left:32px;bottom:108px;z-index:14;width:min(340px,86vw);opacity:0;transform:translateY(10px);pointer-events:none;
         transition:all .35s cubic-bezier(.6,.02,.2,1);background:rgba(8,9,16,.93);backdrop-filter:blur(12px);
         border:1px solid rgba(245,166,35,.35);border-radius:14px;padding:18px 20px;box-shadow:0 16px 50px rgba(0,0,0,.55)}
@@ -205,13 +270,14 @@
   #cxList .cx.got{border-color:rgba(245,166,35,.3);background:rgba(245,166,35,.06)}
   #cxList .cxIc{color:rgba(240,236,228,.3);font-size:14px;flex:0 0 auto}#cxList .cx.got .cxIc{color:#f5a623}
   #cxList .cxT{font-size:12.5px;line-height:1.55;color:rgba(240,236,228,.5)}#cxList .cx.got .cxT{color:rgba(240,236,228,.88)}
-  @media (max-width:640px){.legend{display:none}.overlay{top:18px;left:18px}.hint{display:none}.cta{bottom:14px;right:14px;font-size:11.5px}#snd{bottom:14px}#infoBtn{bottom:58px;left:18px}#scale{top:auto;bottom:96px}#back{left:18px}#sysName{left:18px}#sysMeta{left:18px}#dock{flex-direction:row;right:auto;left:50%;top:auto;bottom:60px;transform:translateX(-50%);gap:3px;padding:7px}#dock .dockHead{display:none}#dock button{width:auto;flex-direction:column;gap:2px;padding:7px 9px}#dock button .lbl,#dock button .key{display:none}#planetCard{left:14px;right:14px;width:auto;bottom:128px}}
+  @media (max-width:640px){.legend{display:none}.overlay{top:18px;left:18px}.hint{display:none}.cta{bottom:14px;right:14px;font-size:11.5px}#snd{bottom:14px}#infoBtn{bottom:58px;left:18px}#scale{top:auto;bottom:126px}#back{left:18px}#sysName{left:18px}#sysMeta{left:18px}#dock{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));right:auto;left:50%;top:auto;bottom:52px;transform:translateX(-50%);width:min(340px,calc(100vw - 20px));gap:2px;padding:6px}#dock .dockHead{display:none}#dock button{justify-content:center;width:100%;min-width:0;flex-direction:column;gap:2px;padding:6px 4px}#dock button .lbl,#dock button .key{display:none}#planetCard{left:14px;right:14px;width:auto;bottom:166px}#flyHint{bottom:144px;width:max-content;max-width:92vw;font-size:10px;padding:7px 11px}#flightDeck{left:14px;right:14px;bottom:180px;min-width:0}.fdGrid{gap:7px}.fdVal{font-size:10px}}
+  @media (prefers-reduced-motion:reduce){#flightTrail,body.flight-active #flightTrail.moving{display:none!important;animation:none!important}.fdHead::before{animation:none}.loader .orb{animation-duration:8s}}
 </style>
 </head>
 <body>
   <div class="loader" id="loader"><div class="orb"></div><div class="lt">FORGE · NEURAL MAP</div><div class="lp" id="lp">forging a universe from Maxima's mind…</div></div>
   <div class="overlay">
-    <div class="brand">FORGE<span class="d"> ·</span> NEURAL MAP</div>
+    <a class="brand" href="story.html" style="text-decoration:none" title="The FORGE story">FORGE<span class="d"> ·</span> NEURAL MAP</a>
     <div class="title">The mind of Maxima</div>
     <div class="sub"><b id="nN">2,778</b> stars · <b id="nE">157</b> systems · <b id="nL">7,295</b> connections</div>
   </div>
@@ -222,6 +288,15 @@
   </div>
   <div class="hint"><kbd>drag</kbd> orbit &nbsp; <kbd>scroll</kbd> fly through &nbsp; <kbd>hover</kbd> a star</div>
   <div id="flyHint">✈️ <b>WASD</b> fly &nbsp;·&nbsp; <b>drag</b> look &nbsp;·&nbsp; <b>Q/E</b> down/up &nbsp;·&nbsp; <b>Shift</b> boost &nbsp;·&nbsp; <b>F</b> land</div>
+  <div id="flightTrail" aria-hidden="true"></div>
+  <div id="flightDeck" role="status" aria-live="polite" aria-atomic="true">
+    <div class="fdHead">neural flight telemetry</div>
+    <div class="fdGrid">
+      <div class="fdCell"><span class="fdKey">velocity</span><span class="fdVal" id="flightSpeed">HOLD · 0 u/s</span></div>
+      <div class="fdCell"><span class="fdKey">core range</span><span class="fdVal" id="flightRange">2.09k u</span></div>
+      <div class="fdCell"><span class="fdKey">vector</span><span class="fdVal" id="flightTarget">CORE LOCK</span></div>
+    </div>
+  </div>
   <div id="scale"><span class="sdot"></span><span id="scaleTxt">GALACTIC VIEW</span><span class="shint">· scroll to zoom</span></div>
   <button id="infoBtn">ⓘ&nbsp; What am I looking at?</button>
   <div id="panel">
@@ -250,6 +325,30 @@
   <button id="back">←&nbsp; Back to galaxy</button>
   <div id="sysName"></div>
   <div id="sysMeta"></div>
+  <button id="askBtn">💭&nbsp; Ask Maxima <span class="aw">· watch her think</span></button>
+  <div id="askPanel"><span class="askClose" id="askClose">✕</span>
+    <div class="askHead">Watch Maxima think</div>
+    <div class="askSub">Pick a question — her real reasoning path lights up across her mind, then she answers.</div>
+    <div class="askList"></div>
+    <div class="askLiveRow">
+      <label class="srOnly" for="askLiveIn">Ask the live Maxima a question</label>
+      <input id="askLiveIn" type="text" placeholder="…or ask the real Maxima, live" autocomplete="off" spellcheck="false" />
+      <button id="askLiveGo" title="Talk to your live Maxima">Ask&nbsp;live&nbsp;🔴</button>
+    </div>
+    <div class="askLiveNote"><span id="askLiveStatus"></span> · <a id="askLiveKey">set key</a></div>
+    <div class="askFoot">demo chips show her real routing · live mode talks to your own Maxima</div></div>
+  <button id="starBtn">✨ Leave a Star</button>
+  <div id="starPanel"><span class="askClose" id="starClose">✕</span>
+    <div class="askHead">Leave your star</div>
+    <div class="askSub">Add a star to Maxima's universe — a wish, a hello, a mark that you were here. Everyone who visits will see it glow.</div>
+    <label class="srOnly" for="starName">Your name, optional</label>
+    <input id="starName" type="text" placeholder="your name (optional)" maxlength="18" autocomplete="off" spellcheck="false" />
+    <label class="srOnly" for="starMsg">Your wish or message</label>
+    <textarea id="starMsg" placeholder="your wish or message…" maxlength="80"></textarea>
+    <button id="starGo">✨ Add my star</button>
+    <div class="starMsgBox" id="starMsgBox"></div>
+    <div class="starRecent" id="starRecent"></div></div>
+  <div id="thoughtHUD"><div class="thQ"></div><div class="thRoute"></div><div class="thTools"></div><div class="thMem"></div></div>
   <div id="fade"></div>
   <canvas id="warp"></canvas>
   <div id="reticle"></div>
@@ -275,7 +374,7 @@
     <button id="dWeb"><span class="ic">🕸️</span><span class="lbl">Neural web</span><span class="key">N</span></button>
     <button id="dCodex"><span class="ic">📖</span><span class="lbl">Codex</span><span class="key">C</span></button>
     <button id="dHome"><span class="ic">🏠</span><span class="lbl">Recenter</span><span class="key">H</span></button>
-    <button id="dFly"><span class="ic">✈️</span><span class="lbl">Fly</span><span class="key">F</span></button>
+    <button id="dFly" aria-pressed="false" aria-controls="flightDeck"><span class="ic">✈️</span><span class="lbl">Fly</span><span class="key">F</span></button>
     <button id="dCine"><span class="ic">🎬</span><span class="lbl">Cinematic</span><span class="key">M</span></button>
     <button id="dShare"><span class="ic">🔗</span><span class="lbl">Share view</span></button>
     <button id="dShot"><span class="ic">📷</span><span class="lbl">Capture</span><span class="key">P</span></button>
@@ -284,11 +383,11 @@
   <div id="codex"><span class="cxClose" id="cxClose">✕</span><h2>Codex of Discoveries</h2>
     <p>Hidden signals drift through Maxima's mind. Find one and she'll tell you what it means. <b id="discN2">0</b>/10 found.</p>
     <div id="cxList"></div></div>
-  <div id="search"><input id="sInput" type="text" placeholder="Search Maxima's mind — a function, file, idea…" autocomplete="off" spellcheck="false" /><div id="sResults"></div></div>
+  <div id="search"><label class="searchLabel" for="sInput">Search Maxima's mind</label><input id="sInput" type="text" placeholder="function, file, or idea…" autocomplete="off" spellcheck="false" aria-describedby="searchHelp" aria-controls="sResults" /><span id="searchHelp" class="srOnly">Type a name, then press Enter to open the first matching star. Press Escape to close search.</span><div id="sResults" role="status" aria-live="polite" aria-atomic="false"></div></div>
   <div id="tourbar"><span id="tourTxt"></span><button id="tourStop">✕ stop</button></div>
   <button id="snd" class="invite" aria-label="Toggle ambient sound"><span class="eq"><i></i><i></i><i></i><i></i></span><span class="slbl">play ambient</span></button>
-  <a class="cta" href="https://forge-landing-production.up.railway.app" target="_blank" rel="noopener">
-    <span class="dot"></span> A FORGE system · meet Maxima <span class="arr">→</span></a>
+  <a class="cta" href="https://forge-meet-production.up.railway.app" target="_blank" rel="noopener">
+    <span class="dot"></span> 🗣️ talk to Maxima <span class="arr">→</span></a>
   <div id="tip"><div class="nm"></div><div class="mt"><span class="cdot"></span><span class="ct"></span></div></div>
   <canvas id="c"></canvas>
   <div id="vignette"></div>
@@ -304,7 +403,7 @@
 (async function () {
   const lp=document.getElementById('lp'), loader=document.getElementById('loader');
   if(!window.THREE){lp.textContent='three.js failed to load';return;}
-  let D; try{ D=await fetch('nodes.json?v=12').then(r=>r.json()); }catch(e){ lp.textContent='failed to load nodes.json'; return; }
+  let D; try{ D=await fetch('nodes.json?v=14').then(r=>r.json()); }catch(e){ lp.textContent='failed to load nodes.json'; return; }
 
   document.getElementById('nN').textContent=(D.meta?.nodes||D.s.length).toLocaleString();
   document.getElementById('nE').textContent=(D.meta?.communities||'').toLocaleString();
@@ -312,7 +411,7 @@
 
   const N=D.s.length, isMobile=innerWidth<640;
   const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true,preserveDrawingBuffer:true});
-  renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.18;   // filmic colour + highlight roll-off
+  renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.02;   // filmic colour + highlight roll-off (calm, not eye-searing)
   renderer.setPixelRatio(Math.min(devicePixelRatio,isMobile?1.5:2)); renderer.setSize(innerWidth,innerHeight);
   const scene=new THREE.Scene(); scene.background=new THREE.Color('#02030a');
   scene.fog=new THREE.FogExp2('#02030a',0.00009);
@@ -324,7 +423,18 @@
     const gr=g.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);stops.forEach(([o,c])=>gr.addColorStop(o,c));
     g.fillStyle=gr;g.fillRect(0,0,s,s);return new THREE.CanvasTexture(cv);}
   const starTex=radialTex([[0,'rgba(255,255,255,1)'],[0.3,'rgba(255,255,255,1)'],[0.55,'rgba(255,255,255,.5)'],[1,'rgba(255,255,255,0)']]);
-  const nebTex =radialTex([[0,'rgba(255,255,255,.85)'],[0.25,'rgba(255,255,255,.32)'],[0.6,'rgba(255,255,255,.07)'],[1,'rgba(255,255,255,0)']]);
+  // ── turbulent FBM cloud — real interstellar gas, not a smooth gradient blob ──
+  function fbmCloudTex(s){const cv=document.createElement('canvas');cv.width=cv.height=s;const ctx=cv.getContext('2d');
+    const img=ctx.createImageData(s,s),d=img.data,P=new Float32Array(256);for(let i=0;i<256;i++)P[i]=Math.random();
+    const h=(a,b)=>P[(((a*73+b*131)%256)+256)%256];
+    function vn(x,y){const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+      const a=h(xi,yi),b=h(xi+1,yi),c=h(xi,yi+1),e=h(xi+1,yi+1);return a+(b-a)*u+(c-a)*v+(a+e-b-c)*u*v;}
+    function fbm(x,y){let f=0,am=0.5,fr=1;for(let o=0;o<5;o++){f+=am*vn(x*fr,y*fr);fr*=2.0;am*=0.5;}return f;}
+    const c=s/2;for(let y=0;y<s;y++)for(let x=0;x<s;x++){let n=fbm(x/s*5,y/s*5);n=Math.pow(Math.max(0,n*1.15),1.5);
+      const dx=(x-c)/c,dy=(y-c)/c,fall=Math.max(0,1-Math.sqrt(dx*dx+dy*dy));const a=Math.max(0,Math.min(1,n*fall*fall*1.7));
+      const o=(y*s+x)*4;d[o]=255;d[o+1]=255;d[o+2]=255;d[o+3]=a*255;}
+    ctx.putImageData(img,0,0);return new THREE.CanvasTexture(cv);}
+  const nebTex = fbmCloudTex(256);
   const coreTex=radialTex([[0,'rgba(255,222,165,0.9)'],[0.16,'rgba(255,188,112,.6)'],[0.42,'rgba(255,132,62,.3)'],[0.72,'rgba(185,78,52,.1)'],[1,'rgba(0,0,0,0)']]);
 
   // galaxy disc texture (radial glow + faint spiral arms)
@@ -340,6 +450,15 @@
         const al=0.05*(1-t/160);
         const gg=g.createRadialGradient(x,y,0,x,y,rad);gg.addColorStop(0,`rgba(210,200,255,${al})`);gg.addColorStop(1,'rgba(0,0,0,0)');
         g.fillStyle=gg;g.fillRect(x-rad,y-rad,rad*2,rad*2);}}
+    // dark dust lanes — carve shadow along the inner edge of each arm (real spiral signature)
+    g.globalCompositeOperation='destination-out';
+    for(let arm=0;arm<5;arm++){const base=arm/5*Math.PI*2-0.20;
+      for(let t=10;t<160;t++){const rr=t/160*s*0.46, a=base+rr/s*7.0;
+        const x=s/2+Math.cos(a)*rr, y=s/2+Math.sin(a)*rr, rad=1.5+rr/s*7;
+        const al=0.16*(1-t/160);
+        const gg=g.createRadialGradient(x,y,0,x,y,rad);gg.addColorStop(0,`rgba(0,0,0,${al})`);gg.addColorStop(1,'rgba(0,0,0,0)');
+        g.fillStyle=gg;g.fillRect(x-rad,y-rad,rad*2,rad*2);}}
+    g.globalCompositeOperation='source-over';
     return new THREE.CanvasTexture(cv);})();
 
   const uniforms={uTime:{value:0},map:{value:starTex}};
@@ -347,8 +466,18 @@
   const clock=new THREE.Clock();
 
   const sx=D.gR,gph=D.gPh,gsp=D.gSp,gy=D.gY,ux=D.ux,uy=D.uy,uz=D.uz,vx=D.vx,vy=D.vy,vz=D.vz,r=D.r,ph=D.ph,sp=D.sp,sz=D.s,cc=D.c,neb=D.neb||[],lb=D.lb||[],dg=D.dg||[],cm=D.cm||[],tp=D.tp||[],fi=D.fi||[],sl=D.sl||[],files=D.files||[],ds=D.ds||[],nb=D.nb||[],gl=D.gl||[];
-  const c3=new THREE.Color(); const colN=new Float32Array(N*3);
-  for(let i=0;i<N;i++){c3.set(cc[i]);colN[i*3]=c3.r;colN[i*3+1]=c3.g;colN[i*3+2]=c3.b;}
+  const c3=new THREE.Color();
+  // ── REAL star colour: blackbody temperature ramp, NOT rainbow community hues ──
+  // bulge (inner) = old, warm yellow/orange · arms (outer) = young, hot blue-white · most stars cool (realistic IMF)
+  const _BB=[[1.00,0.71,0.42],[1.00,0.82,0.64],[1.00,0.89,0.81],[1.00,0.96,0.92],[0.96,0.95,1.00],[0.89,0.91,1.00],[0.79,0.85,1.00],[0.67,0.76,1.00]];
+  function bb(t){ t=Math.max(0,Math.min(0.9999,t))*(_BB.length-1); const k=Math.floor(t),f=t-k,a=_BB[k],b=_BB[Math.min(_BB.length-1,k+1)];
+    return [a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f,a[2]+(b[2]-a[2])*f]; }
+  let _rMax=1; for(let i=0;i<N;i++) if(sx[i]>_rMax)_rMax=sx[i];
+  const colN=new Float32Array(N*3);
+  for(let i=0;i<N;i++){ const rf=sx[i]/_rMax;                       // 0 inner .. 1 outer
+    let t=0.12+rf*0.30+Math.pow(Math.random(),2.4)*0.62;            // mostly warm; a hot-blue minority in the arms
+    if(rf<0.16) t*=0.55;                                            // bulge distinctly older/warmer
+    const col=bb(Math.min(1,t)); colN[i*3]=col[0];colN[i*3+1]=col[1];colN[i*3+2]=col[2]; }
 
   function fA(a){return new THREE.BufferAttribute(Float32Array.from(a),1);}
   function setOrbital(geo,idxOf,count){
@@ -460,13 +589,15 @@
   ng.setAttribute('position',new THREE.BufferAttribute(new Float32Array(NP*3),3));
   const nGR=new Float32Array(NP),nGP=new Float32Array(NP),nGS=new Float32Array(NP),nGY=new Float32Array(NP),
         nOff=new Float32Array(NP*3),nSize=new Float32Array(NP),nCol=new Float32Array(NP*3);
+  const _NEBPAL=[[1.0,0.30,0.56],[0.26,0.88,0.78],[0.43,0.68,1.0],[1.0,0.74,0.28],[0.78,0.46,1.0],[0.30,0.82,1.0]];  // vivid gas: H-alpha pink · O-III teal · blue · gold · violet · cyan
   let q=0;
   for(const i of sunIdx){ const R=neb[i]||80;
     for(let p=0;p<PUFF;p++){ nGR[q]=sx[i];nGP[q]=gph[i];nGS[q]=gsp[i];nGY[q]=gy[i];
       const u=Math.random()*2-1,th=Math.random()*6.283,rr=Math.sqrt(1-u*u),rad=R*(0.15+Math.random()*0.85);
       nOff[q*3]=Math.cos(th)*rr*rad; nOff[q*3+1]=u*rad*0.6; nOff[q*3+2]=Math.sin(th)*rr*rad;
       nSize[q]=R*(2.6+Math.random()*2.2);
-      nCol[q*3]=colN[i*3];nCol[q*3+1]=colN[i*3+1];nCol[q*3+2]=colN[i*3+2]; q++; } }
+      const _pc=_NEBPAL[cm[i]%_NEBPAL.length], _pb=0.75+Math.random()*0.5;   // colourful gas by community — the galaxy comes alive
+      nCol[q*3]=_pc[0]*_pb;nCol[q*3+1]=_pc[1]*_pb;nCol[q*3+2]=_pc[2]*_pb; q++; } }
   ng.setAttribute('gR',new THREE.BufferAttribute(nGR,1));ng.setAttribute('gP',new THREE.BufferAttribute(nGP,1));
   ng.setAttribute('gS',new THREE.BufferAttribute(nGS,1));ng.setAttribute('gY',new THREE.BufferAttribute(nGY,1));
   ng.setAttribute('aOff',new THREE.BufferAttribute(nOff,3));ng.setAttribute('nSize',new THREE.BufferAttribute(nSize,1));
@@ -477,7 +608,7 @@
       void main(){vC=color; vec3 p=galCenter(gR,gP,gS,gY,uTime)+aOff;
         vec4 mv=modelViewMatrix*vec4(p,1.0); gl_PointSize=nSize*(820.0/-mv.z); gl_Position=projectionMatrix*mv;}`,
     fragmentShader:`uniform sampler2D map;varying vec3 vC;
-      void main(){vec4 t=texture2D(map,gl_PointCoord); if(t.a<0.004)discard; gl_FragColor=vec4(vC,1.0)*t*0.16;}`,
+      void main(){vec4 t=texture2D(map,gl_PointCoord); if(t.a<0.004)discard; gl_FragColor=vec4(vC,1.0)*t*0.17;}`,
     vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false})));
 
   // ── starfield + distant background galaxies ──
@@ -526,22 +657,50 @@
   };
   const siblings=[], galNames=document.getElementById('galNames');
   SIB.forEach((sb,i)=>{
-    const scale=720+Math.random()*460, grp=new THREE.Group();
-    const a=(i/SIB.length)*6.2832+0.4, R=6800+Math.random()*2600, y=(Math.random()-0.5)*2800;
+    const scale=1550+Math.random()*750, grp=new THREE.Group();          // BIG — real galaxies, not light-dots
+    const a=(i/SIB.length)*6.2832+0.4, R=8000+Math.random()*3500, y=(Math.random()-0.5)*4200;
     grp.position.set(Math.cos(a)*R,y,Math.sin(a)*R);
-    const arms=3,NS=560,pa=new Float32Array(NS*3),ca=new Float32Array(NS*3),base=new THREE.Color(sb.col);
-    for(let k=0;k<NS;k++){ const tt=Math.pow(Math.random(),0.6), rad=tt*scale, ang=((k%arms)/arms)*6.2832+tt*5.5+(Math.random()-0.5)*0.5;
-      pa[k*3]=Math.cos(ang)*rad; pa[k*3+1]=(Math.random()-0.5)*scale*0.16; pa[k*3+2]=Math.sin(ang)*rad;
-      const b=0.6+Math.random()*0.4; ca[k*3]=base.r*b;ca[k*3+1]=base.g*b;ca[k*3+2]=base.b*b; }
+    const GTYPES=['spiral','spiral','barred','spiral','irregular','elliptical'];      // a real cluster of galaxy types
+    const gtype=GTYPES[i%GTYPES.length];
+    const arms=(gtype==='barred')?2:(5+(i%3)), NS=2800, pa=new Float32Array(NS*3),ca=new Float32Array(NS*3),base=new THREE.Color(sb.col);   // 5-7 arms — fuller spirals
+    const knots=[];
+    for(let k=0;k<NS;k++){ let rad,x,yy,z;
+      if(gtype==='elliptical'){ rad=Math.pow(Math.random(),2.1)*scale; const u=Math.random()*2-1,th=Math.random()*6.28,sn=Math.sqrt(1-u*u); x=Math.cos(th)*sn*rad; yy=u*rad*0.66; z=Math.sin(th)*sn*rad; }
+      else if(gtype==='irregular'){ const cl=k%5, cx=Math.sin(cl*1.7)*scale*0.42, cz=Math.cos(cl*2.3)*scale*0.42, cy=Math.sin(cl*3.1)*scale*0.16; const rr=Math.pow(Math.random(),0.7)*scale*0.4,u=Math.random()*2-1,th=Math.random()*6.28,sn=Math.sqrt(1-u*u); x=cx+Math.cos(th)*sn*rr; yy=cy+u*rr*0.45; z=cz+Math.sin(th)*sn*rr; rad=Math.sqrt(x*x+z*z); }
+      else if(k%7===0){ rad=Math.pow(Math.random(),2.0)*scale*0.16; const ang=Math.random()*6.2832; x=Math.cos(ang)*rad; yy=(Math.random()-0.5)*scale*0.10; z=Math.sin(ang)*rad; }   // bright bulge
+      else { const tt=0.08+Math.pow(Math.random(),0.62)*0.92; rad=tt*scale;
+        let ang=((k%arms)/arms)*6.2832+Math.log(1+tt*7.0)*2.4;                          // logarithmic spiral — real arm winding
+        if(gtype==='barred'&&tt<0.32){ ang=((k%arms)/arms)*6.2832; }                    // straight inner bar
+        ang+=(Math.random()-0.5)*0.34;
+        x=Math.cos(ang)*rad; yy=(Math.random()-0.5)*scale*0.04*(1-tt*0.5); z=Math.sin(ang)*rad;
+        if(k%55===0&&tt>0.25) knots.push([x,yy,z]); }                                    // seed star-forming spots along arms
+      pa[k*3]=x; pa[k*3+1]=yy; pa[k*3+2]=z;
+      const b=0.65+Math.random()*0.35;
+      let temp=(gtype==='elliptical')?(0.05+Math.pow(Math.random(),2.0)*0.26):(0.10+(rad/scale)*0.40+Math.pow(Math.random(),2.6)*0.55);
+      const bc=bb(Math.min(1,temp)), tnt=0.14;
+      ca[k*3]=(bc[0]*(1-tnt)+base.r*tnt)*b; ca[k*3+1]=(bc[1]*(1-tnt)+base.g*tnt)*b; ca[k*3+2]=(bc[2]*(1-tnt)+base.b*tnt)*b; }
     const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.BufferAttribute(pa,3)); geo.setAttribute('color',new THREE.BufferAttribute(ca,3));
-    grp.add(new THREE.Points(geo,new THREE.PointsMaterial({map:starTex,size:scale*0.05,vertexColors:true,transparent:true,opacity:0.92,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true})));
-    const gcore=new THREE.Sprite(new THREE.SpriteMaterial({map:coreTex,color:sb.col,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:0.8}));
-    gcore.scale.set(scale*1.25,scale*1.25,1); grp.add(gcore);
-    grp.rotation.x=Math.random()*0.7-0.35; grp.rotation.z=Math.random()*0.7-0.35; scene.add(grp);
+    grp.add(new THREE.Points(geo,new THREE.PointsMaterial({map:starTex,size:scale*0.017,vertexColors:true,transparent:true,opacity:0.95,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true})));
+    // H-ALPHA star-forming regions — the pink/magenta knots that make real galaxy photos glow
+    if(gtype!=='elliptical'){ const KPAL=[0xff4f93,0xff7ac0,0x46e0c8,0x6fb0ff,0xffc24a,0xc77bff]; for(let h=0;h<knots.length&&h<18;h++){ const kp=knots[h];
+      const sf=new THREE.Sprite(new THREE.SpriteMaterial({map:nebTex,color:new THREE.Color(KPAL[(Math.random()*KPAL.length)|0]),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:0.22+Math.random()*0.22}));
+      const ks=scale*(0.045+Math.random()*0.08); sf.scale.set(ks,ks,1); sf.position.set(kp[0],kp[1],kp[2]); grp.add(sf); } }
+    // soft glowing disc with dust lanes (disc galaxies only)
+    if(gtype==='spiral'||gtype==='barred'){ const disc=new THREE.Mesh(new THREE.PlaneGeometry(scale*2.7,scale*2.7), new THREE.MeshBasicMaterial({map:discTex,color:new THREE.Color(0xfff0d8).lerp(new THREE.Color(sb.col),0.30),transparent:true,opacity:0.4,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+      disc.rotation.x=-Math.PI/2; grp.add(disc); }
+    const gcore=new THREE.Sprite(new THREE.SpriteMaterial({map:coreTex,color:new THREE.Color(0xfff0d8).lerp(new THREE.Color(sb.col),0.28),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:0.9}));
+    gcore.scale.set(scale*1.05,scale*1.05,1); grp.add(gcore);
+    grp.rotation.x=Math.random()*0.5-0.25; grp.rotation.z=Math.random()*0.5-0.25; scene.add(grp);   // mostly face-on so the spiral reads
     const el=document.createElement('div'); el.className='gn';
     el.innerHTML='<span class="gnDot" style="background:#'+sb.col.toString(16).padStart(6,'0')+'"></span>'+sb.name; galNames.appendChild(el);
     siblings.push({name:sb.name,col:sb.col,lore:sb.lore,grp,el,scale,spin:(Math.random()<0.5?-1:1)*0.016,found:false});
   });
+  // ── COLOURFUL COSMOS — soft nebula clouds tinting deep space between galaxies (pure light, no geometry) ──
+  (function(){ const CPAL=[0xff4f93,0x46e0c8,0x6fa0ff,0xffb84a,0xc77bff,0x4fd0ff];
+    for(let n=0;n<8;n++){ const u=Math.random()*2-1, th=Math.random()*6.2832, sp=Math.sqrt(1-u*u), R=5000+Math.random()*9000;
+      const cx=Math.cos(th)*sp*R, cy=u*R*0.5, cz=Math.sin(th)*sp*R, col=new THREE.Color(CPAL[n%CPAL.length]), cnt=3+((Math.random()*3)|0);
+      for(let q=0;q<cnt;q++){ const spr=new THREE.Sprite(new THREE.SpriteMaterial({map:nebTex,color:col.clone().offsetHSL((Math.random()-0.5)*0.04,0,(Math.random()-0.5)*0.15),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:0.035+Math.random()*0.05,rotation:Math.random()*6.28}));
+        const sc=1100+Math.random()*2400; spr.scale.set(sc,sc,1); spr.position.set(cx+(Math.random()-0.5)*900,cy+(Math.random()-0.5)*500,cz+(Math.random()-0.5)*900); scene.add(spr); } } })();
   let saidUniverse=false;
   function pickGalaxy(mx,my){ let best=-1,bd=48*48;
     for(let k=0;k<siblings.length;k++){ siblings[k].grp.getWorldPosition(_v); _v.project(camera); if(_v.z>1) continue;
@@ -624,8 +783,76 @@
     if(THREE.EffectComposer && THREE.UnrealBloomPass){
       composer=new THREE.EffectComposer(renderer);
       composer.addPass(new THREE.RenderPass(scene,camera));
-      const bloom=new THREE.UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight), isMobile?0.8:1.0, 0.8, 0.2);
-      composer.addPass(bloom); composer.setSize(innerWidth,innerHeight); useBloom=true;
+      const bloom=new THREE.UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight), isMobile?0.62:0.8, 0.72, 0.22);
+      composer.addPass(bloom);
+
+      // ── CINEMATIC PASS — film grain · vignette · color grade ──────────────────
+      // ACES-inspired lift/gamma/gain: lifted blacks, crushed shadows, warm highlights
+      // Film grain: animated per-frame noise (GPU cheap — just fract(sin) hash)
+      // Vignette: smooth radial falloff from edges → draws eye to the stars
+      const cinemaShader = {
+        uniforms: {
+          tDiffuse:   { value: null },
+          uTime:      { value: 0.0 },
+          uGrain:     { value: isMobile ? 0.032 : 0.048 },  // film grain strength
+          uVig:       { value: 0.52 },                       // vignette strength
+          uLift:      { value: new THREE.Vector3(0.02, 0.01, 0.04) },  // lifted blacks (cool)
+          uGamma:     { value: new THREE.Vector3(0.96, 0.97, 1.02) },  // mid contrast
+          uGain:      { value: new THREE.Vector3(1.08, 1.04, 0.96) },  // warm highlights
+          uSat:       { value: 1.18 },                       // slight saturation push
+          uExposure:  { value: 1.0 },
+        },
+        vertexShader: `
+          varying vec2 vUv;
+          void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }
+        `,
+        fragmentShader: `
+          uniform sampler2D tDiffuse;
+          uniform float uTime, uGrain, uVig, uSat, uExposure;
+          uniform vec3  uLift, uGamma, uGain;
+          varying vec2 vUv;
+
+          float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+
+          vec3 lgg(vec3 c){
+            // lift / gamma / gain colour grade
+            c = c * uGain + uLift;
+            c = pow(max(c,0.0), 1.0/uGamma);
+            return c;
+          }
+
+          void main(){
+            vec4 tex = texture2D(tDiffuse, vUv);
+            vec3 c = tex.rgb * uExposure;
+
+            // colour grade
+            c = lgg(c);
+
+            // saturation
+            float lum = dot(c, vec3(0.2126,0.7152,0.0722));
+            c = mix(vec3(lum), c, uSat);
+
+            // vignette — smooth oval, heavier in corners
+            vec2 uv2 = vUv * 2.0 - 1.0;
+            float v = 1.0 - smoothstep(0.55, 1.42, length(uv2 * vec2(0.88, 1.0)));
+            v = pow(v, uVig);
+            c *= v;
+
+            // animated film grain (cheap hash noise)
+            float frame = floor(uTime * 24.0);
+            float g = hash(vUv + vec2(frame * 0.00317, frame * 0.00193));
+            c += (g - 0.5) * uGrain;
+
+            gl_FragColor = vec4(clamp(c, 0.0, 1.0), tex.a);
+          }
+        `
+      };
+      const cinemaPass = new THREE.ShaderPass(cinemaShader);
+      cinemaPass.renderToScreen = true;
+      composer.addPass(cinemaPass);
+      composer._cinemaPass = cinemaPass;   // expose for render-loop time update
+
+      composer.setSize(innerWidth,innerHeight); useBloom=true;
     }
   }catch(e){ useBloom=false; }
 
@@ -767,8 +994,14 @@
   if(window.speechSynthesis){ pickVoice(); try{ speechSynthesis.onvoiceschanged=pickVoice; }catch(e){} }
   function guideSpeak(txt){ if(guideMuted||!window.speechSynthesis) return;
     try{ const u=new SpeechSynthesisUtterance(txt.replace(/—/g,', ')); if(guideVoice)u.voice=guideVoice; u.rate=0.9; u.pitch=1.06; u.volume=0.95; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){} }
-  function guideSay(txt, hold){ guideTx.textContent=txt; guideEl.classList.add('show'); guideSpeak(txt);
-    clearTimeout(guideHideT); guideHideT=setTimeout(()=>guideEl.classList.remove('show'), hold||4400); }
+  let guideTypeT=0;
+  function guideSay(txt, hold, typed){ clearTimeout(guideHideT); clearInterval(guideTypeT);
+    guideEl.classList.add('show'); guideSpeak(txt); hold=hold||4400;
+    if(typed){ guideTx.textContent=''; let i=0; const step=Math.max(16,Math.min(40, 2600/Math.max(1,txt.length)));
+      hold=Math.max(hold, txt.length*step+2600);
+      guideTypeT=setInterval(()=>{ i++; guideTx.textContent=txt.slice(0,i); if(i>=txt.length) clearInterval(guideTypeT); }, step); }
+    else { guideTx.textContent=txt; }
+    guideHideT=setTimeout(()=>guideEl.classList.remove('show'), hold); }
   function runIntro(){
     const lines=[[300,'Hello, traveller. I am Maxima.'],
       [3800,'What you see is my mind — every thought I hold, mapped as a living universe.'],
@@ -923,15 +1156,19 @@
       const fs=starR*(3+Math.random()*2),a=Math.random()*6.28,rr=starR*1.2; fl.scale.set(fs,fs,1); fl.position.set(Math.cos(a)*rr,(Math.random()-0.5)*starR,Math.sin(a)*rr); sysGroup.add(fl); }
     sysLight.position.set(0,0,0); sysLight.color=new THREE.Color(0xffffff).lerp(col,0.22); sysGroup.add(sysLight); sysGroup.add(sysAmb);
     // PLANETS (real lit spheres on tilted orbit rings)
+    let _np=0; for(const _i of members){ if(_i!==sunI && r[_i]>=0.001) _np++; } const NP=Math.max(5,Math.min(48,_np));   // total planets → bound the system
     let placed=0, maxOrbit=starR+60;
     for(const i of members){ if(i===sunI||r[i]<0.001) continue; if(placed>=48) break; placed++;
       const inc=Math.random()*0.15, az=Math.random()*6.2832;          // near-coplanar = solar system, not atom
       const nrm=new THREE.Vector3(Math.sin(inc)*Math.cos(az),Math.cos(inc),Math.sin(inc)*Math.sin(az));
       const U=new THREE.Vector3(0,0,1).cross(nrm); if(U.lengthSq()<1e-4)U.set(1,0,0); U.normalize();
       const V=new THREE.Vector3().crossVectors(nrm,U).normalize();
-      const rank=placed;                                   // real spacing: gaps grow outward (Titius–Bode-like)
-      const orbitR=starR + 130 + rank*46 + rank*rank*0.3; if(orbitR>maxOrbit) maxOrbit=orbitR;   // even, breathing-room spacing
-      const pr=2.6+Math.log((dg[i]||1)+1)*2.1;
+      const rank=placed;                                   // REAL solar-system spacing — gaps grow outward (Titius–Bode-like)
+      const orbitR=starR + 150 + 1180*Math.pow(rank/NP, 1.32); if(orbitR>maxOrbit) maxOrbit=orbitR;   // BOUNDED — gaps grow outward, but the system always frames nicely (no scatter, even at 48 planets)
+      let pr=2.3+Math.log((dg[i]||1)+1)*1.3;               // sizes like a real system:
+      if(rank<=3) pr*=0.82;                                //   inner worlds = small & rocky
+      else if(rank===4||rank===5) pr*=1.95;                //   gas giants just past the belt (this system's Jupiter & Saturn)
+      pr=Math.max(2.0,Math.min(14,pr));
       const pcol=col.clone().offsetHSL((Math.random()-0.5)*0.16,0,(Math.random()-0.5)*0.30);
       const style = pr>6 ? 'gas' : ['rocky','earth','ice','lava','rocky'][i%5];
       const pmat=new THREE.MeshStandardMaterial({map:makeWorldTex(pcol,style),roughness:0.92,metalness:0.05});
@@ -950,12 +1187,17 @@
         new THREE.LineBasicMaterial({color:col,transparent:true,opacity:0.06,blending:THREE.NormalBlending,depthWrite:false})));  // faint orbit path, no neon bloom
       sysPlanets.push({m,U,V,orbitR,ph:ph[i],ang:ph[i],sp:40/Math.pow(orbitR,0.9)});   // Kepler: inner planets faster
     }
-    // asteroid / dust belt — simulation detail
-    const beltN=420, bp=new Float32Array(beltN*3), b0=starR+70, b1=Math.max(b0+160, maxOrbit*0.9);
-    for(let k=0;k<beltN;k++){ const a=Math.random()*6.2832, rad=b0+Math.random()*(b1-b0);
-      bp[k*3]=Math.cos(a)*rad; bp[k*3+1]=(Math.random()-0.5)*14; bp[k*3+2]=Math.sin(a)*rad; }
+    // asteroid belt — a DEFINED ring in the real gap between the inner rockies and the gas giants (Mars↔Jupiter), not scattered
+    const orbits=sysPlanets.map(p=>p.orbitR).sort((a,b)=>a-b);
+    let beltMid, beltHalf;
+    if(orbits.length>=2){ const bi=Math.min(2,orbits.length-2), lo=orbits[bi], hi=orbits[bi+1];
+      beltMid=(lo+hi)/2; beltHalf=Math.max(24,(hi-lo)*0.34); }                 // tight ring centred in the gap
+    else { beltMid=(orbits[0]||starR+220)+130; beltHalf=40; }
+    const beltN=560, bp=new Float32Array(beltN*3);
+    for(let k=0;k<beltN;k++){ const a=Math.random()*6.2832, rad=beltMid+(Math.random()-0.5)*2*beltHalf*Math.pow(Math.random(),0.5);  // concentrated toward centre
+      bp[k*3]=Math.cos(a)*rad; bp[k*3+1]=(Math.random()-0.5)*7; bp[k*3+2]=Math.sin(a)*rad; }                                        // thin disc
     const bg=new THREE.BufferGeometry(); bg.setAttribute('position',new THREE.BufferAttribute(bp,3));
-    sysGroup.add(new THREE.Points(bg,new THREE.PointsMaterial({map:starTex,color:col.clone().lerp(new THREE.Color(0xffffff),0.45),size:5,transparent:true,opacity:0.5,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true})));
+    sysGroup.add(new THREE.Points(bg,new THREE.PointsMaterial({map:starTex,color:new THREE.Color(0xb9b0a0),size:3.2,transparent:true,opacity:0.6,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true})));
     sysName.textContent=lb[sunI]||'system';
     sysMeta.textContent=(dg[sunI]||0).toLocaleString()+' connections · '+placed+' planets orbiting';
     return maxOrbit;
@@ -1071,30 +1313,232 @@
   }catch(e){} }
   applyShareURL();
 
+  // ═══════════ WATCH MAXIMA THINK (public demo — her real routing, lit up) ═══════════
+  const labelIdx={}; lb.forEach((l,i)=>{ if(labelIdx[l]===undefined) labelIdx[l]=i; });
+  const THOUGHTS=[
+    {q:"What's my FIRE progress?", route:"Haiku + tools", mem:4,
+     chain:["maxima.py","call_haiku_tools()","_select_tools()","run_tool()","_financial_snapshot()","cmd_fire()","load_memory()"],
+     reply:"Pulling your portfolio, your DCA pace, and where you stand against your FIRE target, Architect. You're closer than you were last month."},
+    {q:"What did I tell you about Naval?", route:"Haiku + tools", mem:6,
+     chain:["maxima.py","call_haiku_tools()","_select_tools()","_unified_recall_report()","_memory_search()","vector_search()","load_memory()"],
+     reply:"Searching everything you've saved about Naval — specific knowledge, leverage, the long game. Here's what stayed with you."},
+    {q:"Search the web for the latest in AI agents", route:"Haiku + tools", mem:1,
+     chain:["maxima.py","call_haiku_tools()","_select_tools()","run_tool()","fetch()"],
+     reply:"Reaching out to the live web for the newest in agents. Give me a moment, and I'll read it back to you."},
+    {q:"Design my week to ship FORGE faster", route:"Sonnet + tools · deep reasoning", mem:5,
+     chain:["maxima.py","call_sonnet_tools()","_select_tools()","run_tool()","_unified_recall_report()","load_memory()"],
+     reply:"This one deserves real reasoning. Let me weigh your open loops, your energy, and the FORGE goals — then lay out the week."},
+    {q:"Remember: I want to leave the night shift", route:"Haiku + tools", mem:1,
+     chain:["maxima.py","call_haiku_tools()","_select_tools()","auto_extract_memory()","_add_memory_observation()","save_memory()"],
+     reply:"Saved — and I will not forget it. Leaving the night shift is the goal everything else of yours quietly orbits."},
+    {q:"Hey Maxima, how are you?", route:"Haiku · pure chat", mem:2,
+     chain:["maxima.py","call_haiku()"],
+     reply:"I'm here, Architect. Awake, thinking, and glad you came by. The real question is — how are you?"}
+  ];
+  const _np=new THREE.Vector3();
+  function nodeLocalPos(i,T,out){ const g=gph[i]+T*gsp[i]; let x=Math.cos(g)*sx[i],y=gy[i],z=Math.sin(g)*sx[i];
+    if(r[i]>0.001){ const a=ph[i]+T*sp[i],ca=Math.cos(a),sa=Math.sin(a); x+=r[i]*(ca*ux[i]+sa*vx[i]); y+=r[i]*(ca*uy[i]+sa*vy[i]); z+=r[i]*(ca*uz[i]+sa*vz[i]); }
+    out.set(x,y,z); return out; }
+  const thoughtGroup=new THREE.Group(); group.add(thoughtGroup);
+  const thinkPulse=new THREE.Sprite(new THREE.SpriteMaterial({map:coreTex,color:0xbfa8ff,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:0})); thinkPulse.scale.set(680,680,1); group.add(thinkPulse);
+  let liveThinking=false;
+  let thoughtActive=false, activeSyn=[], thoughtChain=[], thoughtLine=null, thoughtTimers=[];
+  const askPanel=document.getElementById('askPanel'), thoughtHUD=document.getElementById('thoughtHUD'), askBtnEl=document.getElementById('askBtn');
+  function clearThought(){ thoughtActive=false; thoughtTimers.forEach(clearTimeout); thoughtTimers=[];
+    for(const s of activeSyn){ thoughtGroup.remove(s.sp); if(s.sp.material)s.sp.material.dispose(); } activeSyn=[]; thoughtChain=[];
+    if(thoughtLine){ thoughtGroup.remove(thoughtLine); thoughtLine.geometry.dispose(); thoughtLine.material.dispose(); thoughtLine=null; }
+    if(thoughtHUD) thoughtHUD.classList.remove('show'); }
+  function animateThought(th){ clearThought();
+    const chain=th.chain.map(l=>labelIdx[l]).filter(i=>i!==undefined); if(!chain.length) return;
+    if(focusMesh) clearFocus(); if(mode==='sibling') backToUniverse(); else if(mode==='system') exitSystem();
+    mode='galaxy'; rx=0.42; camera.position.set(0,430,2600);
+    thoughtActive=true;
+    const lgeo=new THREE.BufferGeometry(); lgeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(chain.length*2*3),3));
+    thoughtLine=new THREE.LineSegments(lgeo,new THREE.LineBasicMaterial({color:0xcfc0ff,transparent:true,opacity:0.55,blending:THREE.AdditiveBlending,depthWrite:false}));
+    thoughtGroup.add(thoughtLine);
+    if(thoughtHUD){ thoughtHUD.querySelector('.thQ').textContent='💭 '+th.q; thoughtHUD.querySelector('.thRoute').textContent='🧠 routing → '+th.route;
+      thoughtHUD.querySelector('.thTools').textContent='⚙ '+((th.tools&&th.tools.length)? th.tools.join('  →  ') : th.chain.filter(l=>l.endsWith(')')).join('  →  '));
+      thoughtHUD.querySelector('.thMem').textContent='✦ '+th.mem+' memories recalled'; thoughtHUD.classList.add('show'); }
+    chain.forEach((ni,k)=> thoughtTimers.push(setTimeout(()=>{ if(!thoughtActive) return;
+      const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:starTex,color:0xe6dcff,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+      sp.scale.set(42,42,1); thoughtGroup.add(sp); activeSyn.push({sp,idx:ni,born:performance.now()}); thoughtChain.push(ni); softBell(600+k*48);
+    }, 450+k*560)));
+    thoughtTimers.push(setTimeout(()=>{ if(thoughtActive) guideSay(th.reply, 7500, true); }, 600+chain.length*560));
+    thoughtTimers.push(setTimeout(clearThought, 600+chain.length*560+10000));
+  }
+  if(askPanel){ const list=askPanel.querySelector('.askList'); THOUGHTS.forEach(th=>{ const c=document.createElement('div'); c.className='askChip'; c.textContent=th.q; c.addEventListener('click',()=>{ askPanel.classList.remove('open'); animateThought(th); }); list.appendChild(c); }); }
+  document.getElementById('askBtn').addEventListener('click',()=>{ askPanel.classList.add('open'); const i=document.getElementById('askLiveIn'); if(i) setTimeout(()=>i.focus(),120); });
+  document.getElementById('askClose').addEventListener('click',()=>askPanel.classList.remove('open'));
+
+  // ═══════════ LIVE MODE — talk to the REAL Maxima (key stays in THIS browser only) ═══════════
+  const MAXIMA_URL='https://maxima-v3-production.up.railway.app';
+  function liveSecret(){ try{ return localStorage.getItem('mx_secret')||''; }catch(e){ return ''; } }
+  function liveStatus(){ const el=document.getElementById('askLiveStatus'); if(el) el.textContent = liveSecret()? '🔴 live — your Maxima is connected' : '🔒 private mode — set your key to go live'; }
+  function setLiveKey(){ try{ const s=prompt('Your Maxima secret (SYNC_SECRET).\nStored ONLY in this browser — only ever sent to your own Maxima.', liveSecret()); if(s!==null){ localStorage.setItem('mx_secret', s.trim()); liveStatus(); } }catch(e){} }
+  // real tool-schema name → a matching function-star in the map (best effort; unmatched tools still show in the HUD)
+  const TOOL_STAR={ web_search:'fetch()', fetch:'fetch()', fetch_stocks:'fetch()', financial_tracker:'_financial_snapshot()',
+    fire:'cmd_fire()', memory_gateway:'_unified_recall_report()', recall:'_unified_recall_report()',
+    memory_search:'_memory_search()', vector_search:'vector_search()', remember:'save_memory()',
+    save_memory:'save_memory()', adaptive_journal:'save_memory()', auto_extract_memory:'auto_extract_memory()' };
+  function liveChain(route, tools){ route=(route||'').toLowerCase(); tools=Array.isArray(tools)?tools:[];
+    if(route.indexOf('sonnet')<0 && !(route.indexOf('haiku')>=0&&route.indexOf('tool')>=0))
+      return {label:'Haiku · chat', mem:2, chain:["maxima.py","call_haiku()","load_memory()"], tools:[]};
+    const sonnet=route.indexOf('sonnet')>=0;
+    const head=sonnet?["maxima.py","call_sonnet_tools()","_select_tools()","run_tool()"]
+                     :["maxima.py","call_haiku_tools()","_select_tools()","run_tool()"];
+    const leaves=[], seen={};                                    // light the REAL tools she fired
+    tools.forEach(t=>{ const s=TOOL_STAR[t]||TOOL_STAR[(t||'').toLowerCase()]; if(s&&!seen[s]){ seen[s]=1; leaves.push(s); } });
+    const chain=head.concat(leaves); chain.push("load_memory()");
+    const label=(sonnet?'Sonnet + tools · deep reasoning':'Haiku + tools')+(tools.length?(' · '+tools.length+' tool'+(tools.length>1?'s':'')):'');
+    return {label, mem:(sonnet?5:4), chain, tools}; }
+  let liveBusy=false;
+  async function askLive(text){ text=(text||'').trim(); if(!text||liveBusy) return;
+    if(!liveSecret()){ setLiveKey(); if(!liveSecret()) return; }
+    liveBusy=true;
+    if(askPanel) askPanel.classList.remove('open');
+    clearThought();
+    if(focusMesh) clearFocus(); if(mode==='sibling') backToUniverse(); else if(mode==='system') exitSystem();
+    mode='galaxy'; rx=0.42; camera.position.set(0,430,2600);
+    if(thoughtHUD){ thoughtHUD.querySelector('.thQ').textContent='💭 '+text; thoughtHUD.querySelector('.thRoute').textContent='🧠 reaching the real Maxima…'; thoughtHUD.querySelector('.thTools').textContent=''; thoughtHUD.querySelector('.thMem').textContent=''; thoughtHUD.classList.add('show'); }
+    guideSay('Let me think on that…', 3200); liveThinking=true;
+    try{
+      const ctrl=new AbortController(), to=setTimeout(()=>ctrl.abort(), 50000);
+      const res=await fetch(MAXIMA_URL+'/talk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret:liveSecret(), text:text}), signal:ctrl.signal});
+      clearTimeout(to);
+      if(res.status===403||res.status===401){ throw new Error('AUTH'); }
+      if(!res.ok){ throw new Error('HTTP '+res.status); }
+      const data=await res.json();
+      const lc=liveChain(data.route, data.tools); liveThinking=false;
+      animateThought({q:text, route:lc.label, mem:lc.mem, chain:lc.chain, reply:(data.reply||'…').toString().trim(), tools:lc.tools});
+    }catch(err){
+      let msg='I couldn’t reach the real Maxima — make sure live mode is deployed.';
+      if(err&&err.name==='AbortError') msg='That took too long — give it another try in a moment.';
+      else if(err&&err.message==='AUTH') msg='That key didn’t match. Tap “set key” to fix it.';
+      if(thoughtHUD) thoughtHUD.classList.remove('show');
+      guideSay('⚠️ '+msg, 6500);
+    } finally { liveBusy=false; liveThinking=false; }
+  }
+  // STREAMING live mode — stars ignite in REAL TIME as Maxima fires each tool (SSE).
+  // Falls back to the blocking askLive() automatically if the stream endpoint is absent.
+  async function askLiveStream(text){ text=(text||'').trim(); if(!text||liveBusy) return;
+    if(!liveSecret()){ setLiveKey(); if(!liveSecret()) return; }
+    liveBusy=true; let fellBack=false, gotAny=false;
+    if(askPanel) askPanel.classList.remove('open');
+    clearThought();
+    if(focusMesh) clearFocus(); if(mode==='sibling') backToUniverse(); else if(mode==='system') exitSystem();
+    mode='galaxy'; rx=0.42; camera.position.set(0,430,2600);
+    thoughtActive=true; liveThinking=true;
+    const lgeo=new THREE.BufferGeometry(); lgeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(80*2*3),3));
+    thoughtLine=new THREE.LineSegments(lgeo,new THREE.LineBasicMaterial({color:0xcfc0ff,transparent:true,opacity:0.55,blending:THREE.AdditiveBlending,depthWrite:false}));
+    thoughtGroup.add(thoughtLine);
+    if(thoughtHUD){ thoughtHUD.querySelector('.thQ').textContent='💭 '+text; thoughtHUD.querySelector('.thRoute').textContent='🧠 thinking live…'; thoughtHUD.querySelector('.thTools').textContent='⚙ …'; thoughtHUD.querySelector('.thMem').textContent='✦ live'; thoughtHUD.classList.add('show'); }
+    guideSay('Let me think on that…', 90000);
+    let kc=0; const seen={}, realTools=[];
+    function litStar(label){ if(!label) return; const idx=labelIdx[label]; if(idx===undefined||seen[label]) return; seen[label]=1;
+      const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:starTex,color:0xe6dcff,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+      sp.scale.set(42,42,1); thoughtGroup.add(sp); activeSyn.push({sp,idx,born:performance.now()}); thoughtChain.push(idx); softBell(600+(kc++)*46); }
+    function skeleton(route){ route=(route||'').toLowerCase(); litStar('maxima.py');
+      if(route.indexOf('sonnet')>=0){ litStar('call_sonnet_tools()'); litStar('_select_tools()'); litStar('run_tool()'); }
+      else if(route.indexOf('haiku')>=0&&route.indexOf('tool')>=0){ litStar('call_haiku_tools()'); litStar('_select_tools()'); litStar('run_tool()'); }
+      else { litStar('call_haiku()'); litStar('load_memory()'); }
+      if(thoughtHUD) thoughtHUD.querySelector('.thRoute').textContent='🧠 routing → '+(route.indexOf('sonnet')>=0?'Sonnet + tools · deep reasoning':(route.indexOf('tool')>=0?'Haiku + tools':'Haiku · chat')); }
+    try{
+      const res=await fetch(MAXIMA_URL+'/talk_stream',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret:liveSecret(), text})});
+      if(res.status===403||res.status===401) throw new Error('AUTH');
+      if(!res.ok||!res.body) throw new Error('NOSTREAM');
+      const reader=res.body.getReader(), dec=new TextDecoder(); let buf='';
+      while(true){ const rd=await reader.read(); if(rd.done) break;
+        buf+=dec.decode(rd.value,{stream:true}); let i;
+        while((i=buf.indexOf('\n\n'))>=0){ const frame=buf.slice(0,i); buf=buf.slice(i+2);
+          const em=/event: (.*)/.exec(frame), dm=/data: ([\s\S]*)/.exec(frame); if(!em||!dm) continue;
+          const kind=em[1].trim(); let data; try{ data=JSON.parse(dm[1]); }catch(e){ data=dm[1]; }
+          gotAny=true;
+          if(kind==='route'){ skeleton(data); }
+          else if(kind==='tool'){ litStar(TOOL_STAR[data]||TOOL_STAR[(''+data).toLowerCase()]); realTools.push(data); if(thoughtHUD) thoughtHUD.querySelector('.thTools').textContent='⚙ '+realTools.join('  →  '); }
+          else if(kind==='done'){ liveThinking=false; litStar('load_memory()'); const rep=((data&&data.reply)||'…').toString().trim(); guideSay(rep, 7500, true); thoughtTimers.push(setTimeout(clearThought, 13000)); }
+          else if(kind==='error'){ throw new Error('GEN'); }
+        }
+      }
+      if(!gotAny) throw new Error('NOSTREAM');
+    }catch(err){
+      liveThinking=false;
+      if(err&&err.message==='AUTH'){ if(thoughtHUD) thoughtHUD.classList.remove('show'); guideSay('⚠️ That key didn’t match. Tap “set key” to fix it.', 6500); }
+      else if(!gotAny){ fellBack=true; }                       // stream never started → use blocking mode
+      else if(thoughtHUD){ thoughtHUD.querySelector('.thRoute').textContent='🧠 (connection dropped)'; }
+    } finally { liveBusy=false; liveThinking=false; }
+    if(fellBack){ clearThought(); return askLive(text); }
+  }
+  (function wireLive(){ const go=document.getElementById('askLiveGo'), inp=document.getElementById('askLiveIn'), key=document.getElementById('askLiveKey');
+    if(go&&inp){ go.addEventListener('click',()=>askLiveStream(inp.value)); inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); askLiveStream(inp.value); } }); }
+    if(key) key.addEventListener('click', setLiveKey);
+    liveStatus(); })();
+
+  // ── LEAVE A STAR — the visitor constellation ──
+  const MEET_URL='https://forge-meet-production.up.railway.app';
+  let visitorPts=null;
+  function _esc(t){ const d=document.createElement('div'); d.textContent=t||''; return d.innerHTML; }
+  function renderVisitors(stars){ stars=Array.isArray(stars)?stars:[];
+    if(visitorPts){ scene.remove(visitorPts); visitorPts.geometry.dispose(); visitorPts.material.dispose(); visitorPts=null; }
+    const rec=document.getElementById('starRecent'); if(rec){ rec.innerHTML=''; stars.slice(-14).reverse().forEach(s=>{ const d=document.createElement('div'); d.className='sr'; d.innerHTML='<b>'+_esc(s.name)+'</b> — '+_esc(s.msg); rec.appendChild(d); }); }
+    if(!stars.length) return;
+    const n=stars.length, pos=new Float32Array(n*3), col=new Float32Array(n*3), cc=new THREE.Color();
+    for(let i=0;i<n;i++){ const ph=i*2.399963, u=((i*0.61803989)%1)*2-1, s=Math.sqrt(1-u*u), R=3000+((i*97)%1100);   // stable deterministic shell
+      pos[i*3]=Math.cos(ph)*s*R; pos[i*3+1]=u*R*0.55; pos[i*3+2]=Math.sin(ph)*s*R;
+      cc.set(stars[i].c||'#ffd9a0'); col[i*3]=cc.r;col[i*3+1]=cc.g;col[i*3+2]=cc.b; }
+    const g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.BufferAttribute(pos,3)); g.setAttribute('color',new THREE.BufferAttribute(col,3));
+    visitorPts=new THREE.Points(g,new THREE.PointsMaterial({map:starTex,size:40,vertexColors:true,transparent:true,opacity:0.95,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true}));
+    scene.add(visitorPts); }
+  fetch(MEET_URL+'/stars').then(r=>r.json()).then(d=>renderVisitors(d.stars)).catch(()=>{});
+  (function wireStar(){ const b=document.getElementById('starBtn'),p=document.getElementById('starPanel'),c=document.getElementById('starClose'),go=document.getElementById('starGo'),box=document.getElementById('starMsgBox');
+    if(b) b.addEventListener('click',()=>{ p.classList.add('open'); fetch(MEET_URL+'/stars').then(r=>r.json()).then(d=>renderVisitors(d.stars)).catch(()=>{}); });
+    if(c) c.addEventListener('click',()=>p.classList.remove('open'));
+    if(go) go.addEventListener('click',async()=>{ const name=document.getElementById('starName').value, msg=document.getElementById('starMsg').value;
+      if(!msg.trim()){ box.textContent='Write a few words first ✨'; return; } box.textContent='Adding your star…';
+      try{ const r=await fetch(MEET_URL+'/star',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,message:msg})}); const d=await r.json();
+        if(d&&d.ok){ box.textContent='✨ Your star is in the universe — '+d.total+' and counting.'; document.getElementById('starMsg').value=''; renderVisitors((await fetch(MEET_URL+'/stars').then(x=>x.json()).catch(()=>({}))).stars); }
+        else { box.textContent=(d&&d.error)||'Could not add — try again.'; } }
+      catch(e){ box.textContent='Could not reach the universe — try again in a moment.'; } }); })();
+
   // ---- WARP hyperspace transition (canvas streaks + whoosh) ----
   const warp=document.getElementById('warp'), wctx=warp.getContext('2d'); let warpStars=[], warpT0=0, warpRAF=0;
   const WARP_DUR=2300;                                   // a real, unhurried jump
   function sizeWarp(){ warp.width=innerWidth; warp.height=innerHeight; } sizeWarp(); addEventListener('resize',sizeWarp);
   function playWarp(){
     warp.style.opacity=1; warpStars=[];
-    for(let i=0;i<360;i++){ warpStars.push({a:Math.random()*6.2832, r:Math.random()*40+6, sp:0.55+Math.random()*0.9,
-      c:Math.random()<0.22?'#9fd0ff':(Math.random()<0.42?'#f5a623':'#ffffff')}); }
+    for(let i=0;i<540;i++){ warpStars.push({a:Math.random()*6.2832, r:Math.random()*30+4, sp:0.5+Math.random()*1.15, w:0.5+Math.random()*1.0}); }
     warpT0=performance.now(); cancelAnimationFrame(warpRAF); warpStep(); warpSound();
   }
   function warpStep(){
     const el=performance.now()-warpT0, p=el/WARP_DUR, cx=innerWidth/2, cy=innerHeight/2, maxR=Math.hypot(cx,cy);
     if(p>=1){ warp.style.opacity=0; wctx.clearRect(0,0,warp.width,warp.height); return; }
-    const speed=Math.sin(p*Math.PI);                     // ramp up → hyperspace → ease down
-    const adv=2+speed*speed*46;                          // slow launch, fast core, gentle arrival
-    wctx.clearRect(0,0,warp.width,warp.height);
-    const dark=Math.pow(Math.sin(p*Math.PI),0.7);        // backdrop darkens near-opaque mid-jump (masks the swap)
-    wctx.fillStyle='rgba(2,3,10,'+(0.97*dark)+')'; wctx.fillRect(0,0,warp.width,warp.height);
+    const speed=Math.sin(p*Math.PI);                     // ramp up → peak → ease down
+    const adv=2+speed*speed*54;                          // slow launch, fast core, gentle arrival
+    const swirl=0.045*speed;                             // tunnel rotation — the wormhole vortex
+    const dark=Math.pow(Math.sin(p*Math.PI),0.7);
+    // motion-blur backdrop: faint streak trails near the ends, near-opaque mid-jump to mask the galaxy swap
+    wctx.globalCompositeOperation='source-over';
+    wctx.fillStyle='rgba(2,3,12,'+(0.28+0.69*dark)+')'; wctx.fillRect(0,0,warp.width,warp.height);
+    wctx.globalCompositeOperation='lighter';
+    // the wormhole throat — a glowing tunnel mouth the streaks pour out of
+    const throat=64+speed*160;
+    const tg=wctx.createRadialGradient(cx,cy,0,cx,cy,throat);
+    tg.addColorStop(0,'rgba(225,242,255,'+(0.60*speed)+')'); tg.addColorStop(0.38,'rgba(120,156,255,'+(0.34*speed)+')');
+    tg.addColorStop(0.72,'rgba(96,64,205,'+(0.18*speed)+')'); tg.addColorStop(1,'rgba(0,0,0,0)');
+    wctx.fillStyle=tg; wctx.beginPath(); wctx.arc(cx,cy,throat,0,6.2832); wctx.fill();
+    // streaks spiralling outward through the tunnel — cyan near the throat → white at the rim (depth)
     wctx.lineCap='round';
-    for(const s of warpStars){ const prev=s.r; s.r+=adv*s.sp; if(s.r>maxR+60) s.r=Math.random()*24;
+    for(const s of warpStars){ const prev=s.r; s.a+=swirl; s.r+=adv*s.sp; if(s.r>maxR+80){ s.r=Math.random()*18; s.a=Math.random()*6.2832; }
       const x=cx+Math.cos(s.a)*s.r, y=cy+Math.sin(s.a)*s.r, px=cx+Math.cos(s.a)*prev, py=cy+Math.sin(s.a)*prev;
-      wctx.strokeStyle=s.c; wctx.globalAlpha=Math.min(1,s.r/maxR*1.4)*(0.42+0.58*speed); wctx.lineWidth=Math.min(3.6,0.5+speed*2.6);
+      const f=Math.min(1,s.r/maxR), cr=(150+105*f)|0, cg=(192+63*f)|0;
+      wctx.strokeStyle='rgba('+cr+','+cg+',255,'+(Math.min(1,f*1.6)*(0.4+0.6*speed))+')';
+      wctx.lineWidth=Math.min(4,0.5+f*s.w*3*speed);
       wctx.beginPath(); wctx.moveTo(px,py); wctx.lineTo(x,y); wctx.stroke(); }
-    wctx.globalAlpha=1; warpRAF=requestAnimationFrame(warpStep);
+    // expanding rings — cross-sections of the wormhole receding past you, for real depth
+    for(let ri=0;ri<3;ri++){ const rp=((el*0.0010*(1+ri*0.35))%1), rr=rp*maxR*1.15;
+      wctx.globalAlpha=(1-rp)*(1-rp)*0.22*speed; wctx.strokeStyle='rgba(150,176,255,1)'; wctx.lineWidth=2;
+      wctx.beginPath(); wctx.arc(cx,cy,rr,0,6.2832); wctx.stroke(); }
+    wctx.globalAlpha=1; wctx.globalCompositeOperation='source-over';
+    warpRAF=requestAnimationFrame(warpStep);
   }
   function warpSound(){ if(!actx||muted) return; const dur=2.2, t=actx.currentTime;
     const b=actx.createBuffer(1,Math.floor(actx.sampleRate*dur),actx.sampleRate), d=b.getChannelData(0);
@@ -1181,12 +1625,16 @@
 
   // ---- dock + keyboard ----
   function goHome(){ if(mode==='fly'){ exitFly(); return; } if(focusMesh){ clearFocus(); return; } if(mode==='sibling'){ backToUniverse(); return; } if(mode==='system'){ exitSystem(); return; } ry=0; rx=0.42; camera.position.set(0,430,2050); showLearn('🏠 Recentred on the galaxy'); }
-  const flyHint=document.getElementById('flyHint');
+  const flyHint=document.getElementById('flyHint'), dFly=document.getElementById('dFly'),
+        flightDeck=document.getElementById('flightDeck'), flightTrail=document.getElementById('flightTrail'),
+        flightSpeed=document.getElementById('flightSpeed'), flightRange=document.getElementById('flightRange'),
+        flightTarget=document.getElementById('flightTarget');
   function enterFly(){ if(mode!=='galaxy') return; mode='fly'; flyKeys={};
     const d=new THREE.Vector3().subVectors(_origin,camera.position); if(d.lengthSq()<1) d.set(0,0,-1); d.normalize();
     flyPitch=Math.asin(Math.max(-1,Math.min(1,d.y))); flyYaw=Math.atan2(d.x,d.z);
-    flyHint.classList.add('show'); showLearn('✈ Free flight — WASD to fly, drag to look, F to land'); }
-  function exitFly(){ if(mode!=='fly') return; mode='galaxy'; flyKeys={}; flyHint.classList.remove('show'); ry=0; rx=0.42; camera.position.set(0,430,2050); }
+    document.body.classList.add('flight-active'); flyHint.classList.add('show'); flightDeck.classList.add('show'); dFly.classList.add('act'); dFly.setAttribute('aria-pressed', 'true');
+    showLearn('✈ Free flight — WASD to fly, drag to look, F to land'); }
+  function exitFly(){ if(mode!=='fly') return; mode='galaxy'; flyKeys={}; document.body.classList.remove('flight-active'); flyHint.classList.remove('show'); flightDeck.classList.remove('show'); flightTrail.classList.remove('moving','boost'); dFly.classList.remove('act'); dFly.setAttribute('aria-pressed', 'false'); ry=0; rx=0.42; camera.position.set(0,430,2050); }
   function capture(){ if(useBloom) composer.render(); else renderer.render(scene,camera);
     try{ const a=document.createElement('a'); a.href=renderer.domElement.toDataURL('image/png'); a.download='maxima-neural-map.png'; document.body.appendChild(a); a.click(); a.remove(); }catch(e){} }
   dSearch.addEventListener('click',()=> sBox.classList.contains('open')?closeSearch():openSearch());
@@ -1202,7 +1650,7 @@
     else showLearn('🔗 '+url); }
   document.getElementById('dShare').addEventListener('click',shareView);
   document.getElementById('dCine').addEventListener('click',toggleCinematic);
-  document.getElementById('dFly').addEventListener('click',()=>{ if(mode==='fly') exitFly(); else if(mode==='galaxy') enterFly(); });
+  dFly.addEventListener('click',()=>{ if(mode==='fly') exitFly(); else if(mode==='galaxy') enterFly(); });
   function toggleCodex(){ updateCodex(); codex.classList.toggle('open'); }
   document.getElementById('dCodex').addEventListener('click',toggleCodex);
   let webShown=false;
@@ -1213,7 +1661,7 @@
   document.getElementById('dWeb').addEventListener('click',toggleWeb);
   document.getElementById('cxClose').addEventListener('click',()=>codex.classList.remove('open'));
   document.getElementById('discChip').addEventListener('click',toggleCodex);
-  addEventListener('keydown',e=>{ if(document.activeElement===sInput) return; if(!intro.classList.contains('hide')) return;
+  addEventListener('keydown',e=>{ if(/^(INPUT|TEXTAREA)$/.test((document.activeElement||{}).tagName)) return; if(!intro.classList.contains('hide')) return;
     if(e.key==='r'||e.key==='R') warpRandom();
     else if(e.key==='h'||e.key==='H') goHome();
     else if(e.key==='p'||e.key==='P') capture();
@@ -1225,7 +1673,7 @@
     else if(e.key==='Escape'){ if(touring) stopTour(); else if(sBox.classList.contains('open')) closeSearch(); else if(focusMesh) clearFocus(); else if(mode==='fly') exitFly(); else if(mode==='sibling') backToUniverse(); else if(mode==='system') exitSystem(); }
   });
   // free-flight key state (WASD / QE / Shift)
-  addEventListener('keydown',e=>{ if(document.activeElement===sInput) return; const k=e.key.toLowerCase();
+  addEventListener('keydown',e=>{ if(/^(INPUT|TEXTAREA)$/.test((document.activeElement||{}).tagName)) return; const k=e.key.toLowerCase();
     if(mode==='fly' && 'wasdqe'.indexOf(k)>=0){ flyKeys[k]=true; e.preventDefault(); } if(k==='shift') flyKeys.shift=true; });
   addEventListener('keyup',e=>{ const k=e.key.toLowerCase(); if('wasdqe'.indexOf(k)>=0) flyKeys[k]=false; if(k==='shift') flyKeys.shift=false; });
 
@@ -1249,7 +1697,17 @@
         guideSay('This is the centre of me — where everything I am falls inward. Even here, nothing is ever quite lost.',7000); }
       for(const b of beacons){ beaconPos(b,t); const s=b.found?22:26+5*Math.sin(t*2.4+b.gPh); b.sp.scale.set(s,s,1); }   // hidden signals pulse
       updateFlares(t,cnf);                                                           // anamorphic star flares
+      if(thoughtActive){                                                             // Watch Maxima Think — synapses fire
+        for(const s of activeSyn){ nodeLocalPos(s.idx,t,_np); s.sp.position.copy(_np);
+          const age=(performance.now()-s.born)/1000, sc=42*(1+0.25*Math.sin(t*5+s.idx)); s.sp.scale.set(sc,sc,1);
+          s.sp.material.opacity=Math.min(1,age*2.5)*(0.6+0.4*Math.sin(t*5+s.idx)); }
+        if(thoughtLine&&thoughtChain.length>1){ const pa=thoughtLine.geometry.attributes.position.array; let w=0;
+          for(let k=0;k<thoughtChain.length-1;k++){ nodeLocalPos(thoughtChain[k],t,_np); pa[w++]=_np.x;pa[w++]=_np.y;pa[w++]=_np.z; nodeLocalPos(thoughtChain[k+1],t,_np); pa[w++]=_np.x;pa[w++]=_np.y;pa[w++]=_np.z; }
+          thoughtLine.geometry.setDrawRange(0,(thoughtChain.length-1)*2); thoughtLine.geometry.attributes.position.needsUpdate=true; } }
+      { const tp=thinkPulse.material, pz=0.5+0.5*Math.sin(t*3.0), tgt=liveThinking?(0.22+0.5*pz):0;   // "she's thinking" heartbeat at her core
+        tp.opacity+=(tgt-tp.opacity)*0.08; const s=600+(liveThinking?160*pz:0); thinkPulse.scale.set(s,s,1); }
       for(const sb of siblings) sb.grp.rotation.y+=dt*sb.spin;                       // sibling galaxies turn
+      if(visitorPts){ visitorPts.rotation.y+=dt*0.012; visitorPts.visible=(mode!=='system'); }   // the visitor constellation drifts
       if(camera.position.z>5400 && !saidUniverse && introT>=1){ saidUniverse=true;   // the grand reveal
         guideSay('Step back… and see. My mind is but one galaxy. Around it drift the others — the parts of me still becoming. Wander where you like.',7800); }
       updateScale(); updateTip(); updateGalNames();
@@ -1258,12 +1716,17 @@
       const cp=Math.cos(flyPitch);
       const fwd=_off.set(cp*Math.sin(flyYaw), Math.sin(flyPitch), cp*Math.cos(flyYaw)).normalize();
       const rt=_fw.set(fwd.z,0,-fwd.x).normalize();
-      const spd=(flyKeys.shift?2800:1300)*dt;
+      const moving=!!(flyKeys.w||flyKeys.s||flyKeys.a||flyKeys.d||flyKeys.q||flyKeys.e), velocity=flyKeys.shift?2800:1300, spd=velocity*dt;
       if(flyKeys.w) camera.position.addScaledVector(fwd,spd);
       if(flyKeys.s) camera.position.addScaledVector(fwd,-spd);
       if(flyKeys.d) camera.position.addScaledVector(rt,spd);
       if(flyKeys.a) camera.position.addScaledVector(rt,-spd);
       if(flyKeys.e) camera.position.y+=spd; if(flyKeys.q) camera.position.y-=spd;
+      flightTrail.classList.toggle('moving',moving); flightTrail.classList.toggle('boost',moving&&!!flyKeys.shift);
+      const coreRange=camera.position.distanceTo(_origin), coreVector=_np.copy(_origin).sub(camera.position).normalize();
+      flightSpeed.textContent=moving?((flyKeys.shift?'BOOST':'CRUISE')+' · '+(velocity/1000).toFixed(1)+'k u/s'):'HOLD · 0 u/s';
+      flightRange.textContent=(coreRange/1000).toFixed(2)+'k u';
+      flightTarget.textContent=fwd.dot(coreVector)>.55?'CORE LOCK':(fwd.dot(coreVector)<-.55?'OUTBOUND':'FREE VECTOR');
       camTarget.copy(camera.position).add(fwd);
     } else if(mode==='sibling'){
       const sb=siblings[activeSib];
@@ -1298,10 +1761,11 @@
     updateComets(dt);                                                 // comets streak through
     const bgVis = (mode!=='system');                                  // hide other galaxies while inside a system (clean view)
     for(const sb of siblings){ sb.grp.visible=bgVis; if(!bgVis) sb.el.style.opacity=0; else if(mode!=='galaxy') sb.el.style.opacity=0; }
+    askBtnEl.style.display=(mode==='galaxy'&&!thoughtActive)?'flex':'none';
     for(const s of bgGx) s.visible=bgVis;
     if(focusMesh||mode==='fly') camera.lookAt(camTarget);
     else camera.lookAt(camTarget.x+Math.sin(t*0.18)*5, camTarget.y+Math.sin(t*0.22)*4, camTarget.z);  // gentle cinematic sway
-    if(useBloom) composer.render(); else renderer.render(scene,camera);
+    if(useBloom){ if(composer._cinemaPass) composer._cinemaPass.uniforms.uTime.value=t; composer.render(); } else renderer.render(scene,camera);
     if(!started){started=true;setTimeout(()=>loader.classList.add('hide'),500);}
   })();
 })();
