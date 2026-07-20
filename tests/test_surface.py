@@ -108,9 +108,42 @@ class CinematicFlightContract(unittest.TestCase):
         self.assertIn("flightDeck.classList.add('show')", self.text)
         self.assertIn("flightDeck.classList.remove('show')", self.text)
 
-    def test_reduced_motion_disables_nonessential_flight_streaks(self):
+    def test_reduced_motion_css_rule_covers_flight_streaks(self):
+        """The CSS half of reduced motion: #flightTrail and the loader.
+
+        SCOPE, stated because this test used to be named as though it proved the
+        whole feature: a stylesheet can only reach CSS animations. It cannot stop
+        a requestAnimationFrame loop, so it says nothing about whether the galaxy
+        keeps turning. This test was green for the entire period during which the
+        scene spun, the sibling galaxies turned, and the intro flew the camera
+        through space for a visitor who had asked for less motion.
+        `test_reduced_motion_stops_autonomous_scene_motion` covers that.
+        """
         self.assertIn("prefers-reduced-motion:reduce", re.sub(r"\s+", "", self.text))
         self.assertIn("#flightTrail", self.text)
+
+    def test_reduced_motion_stops_autonomous_scene_motion(self):
+        """The JS half: the preference must actually reach the render loop.
+
+        An interactive scene answers reduced motion by removing the movement the
+        visitor did not ask for, NOT by stopping — you must still be able to drag
+        to orbit and scroll to fly. So the contract is:
+
+          * the preference is read in JavaScript (`matchMedia`), since CSS cannot
+            reach the loop at all;
+          * a derived `spin` switch multiplies every autonomous rotation, so no
+            `rotation.<axis> += dt` survives ungated;
+          * the ~16s cinematic camera sweep starts already complete;
+          * the 540-star warp tunnel is skipped rather than played.
+        """
+        self.assertIn("matchMedia", self.text)
+        self.assertRegex(self.text, r"const\s+spin\s*=\s*reduceMotion\s*\?\s*0\s*:\s*1")
+        self.assertNotRegex(
+            self.text, r"rotation\.[xyz]\s*\+=\s*dt",
+            "an autonomous rotation is not gated on the reduced-motion switch",
+        )
+        self.assertRegex(self.text, r"introT=\(reduceMotion\?1:0\)")
+        self.assertRegex(self.text, r"if\(reduceMotion\)\{\s*warp\.style\.opacity=0")
 
 
 if __name__ == "__main__":

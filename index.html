@@ -905,6 +905,20 @@
   }
 
   // ── controls (mode-aware) + intro + auto-rotate ──
+  /* prefers-reduced-motion, read in JS because a stylesheet cannot reach a
+     requestAnimationFrame loop. This file already had an @media block for it
+     (it hides #flightTrail and slows the loader) — which looked like handling
+     and was not: the galaxy kept turning and the intro still flew the camera
+     through space, both of which are exactly what someone with a vestibular
+     disorder is asking not to happen.
+
+     `spin` is the switch: multiply every AUTONOMOUS motion by it. Reduced
+     motion must not mean a dead page — this is an interactive scene (drag to
+     orbit, scroll to fly, WASD), so rendering and user-driven movement carry on
+     untouched. Only the movement the visitor did not ask for stops. */
+  const reduceMotion = !!(window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const spin = reduceMotion ? 0 : 1;
   let drag=false,px=0,py=0,ry=0,rx=0.42, sry=0,srx=0.25, idle=true, lastInteract=performance.now();
   let downX=0,downY=0,downT=0;
   const cv=renderer.domElement;
@@ -1036,7 +1050,19 @@
   const camTarget=new THREE.Vector3(), _origin=new THREE.Vector3(), _fw=new THREE.Vector3(),
         camHome=new THREE.Vector3(0,430,2050), _off=new THREE.Vector3();
   let focusMesh=null, frozen=false, connGroup=null, sysIdxMesh={}, sysSunIdx=-1, curFocus=-1;
-  let fYaw=0.6, fPitch=0.5, fDist=300, fDistTgt=300, fPr=10, restoring=false, pgx=0, pgy=0, introT=0;
+  /* introT starts complete under reduced motion: the cinematic sweep-in flies
+     the camera from z=6800 to z=2050 over ~16s, which is the single most
+     vestibular-hostile thing on this page.
+
+     The camera has to be placed explicitly as well — with introT already at 1
+     the `if(introT<1)` branch never runs, so nothing would ever move the camera
+     to its final spot and the galaxy would sit at the far-out starting framing.
+     These are the exact values `skipIntro()` uses, so reduced motion lands on
+     the same view the skip button produces. The narration is deliberately NOT
+     cancelled here (skipIntro does cancel it): reduced motion is a request
+     about movement, not about content. */
+  let fYaw=0.6, fPitch=0.5, fDist=300, fDistTgt=300, fPr=10, restoring=false, pgx=0, pgy=0, introT=(reduceMotion?1:0);
+  if(reduceMotion) camera.position.set(0,430,2050);
   let activeSib=-1, sYaw=0.5, sPitch=0.42, sDist=2000, sibTimers=[];
   let flyYaw=0, flyPitch=0, flyKeys={};   // free-flight spaceship mode
   const card=document.getElementById('planetCard');
@@ -1504,6 +1530,12 @@
   const WARP_DUR=2300;                                   // a real, unhurried jump
   function sizeWarp(){ warp.width=innerWidth; warp.height=innerHeight; } sizeWarp(); addEventListener('resize',sizeWarp);
   function playWarp(){
+    /* A full-screen tunnel of 540 streaking stars rushing at the viewer is about
+       the most vestibular-hostile thing this page can do, even though it is
+       bounded to WARP_DUR. It is a transition flourish rather than content, so
+       under reduced motion it is skipped outright — the destination still
+       loads, just without being flown through. */
+    if(reduceMotion){ warp.style.opacity=0; wctx.clearRect(0,0,warp.width,warp.height); return; }
     warp.style.opacity=1; warpStars=[];
     for(let i=0;i<540;i++){ warpStars.push({a:Math.random()*6.2832, r:Math.random()*30+4, sp:0.5+Math.random()*1.15, w:0.5+Math.random()*1.0}); }
     warpT0=performance.now(); cancelAnimationFrame(warpRAF); warpStep(); warpSound();
@@ -1686,13 +1718,13 @@
         camera.position.z=6800+(2050-6800)*e; camera.position.x=Math.sin(introT*Math.PI)*520*(1-introT*0.55); }
       if(tourZoom){ tourZoom.t=Math.min(1,tourZoom.t+dt/tourZoom.d); camera.position.z=tourZoom.a+(tourZoom.b-tourZoom.a)*(1-Math.pow(1-tourZoom.t,3)); if(tourZoom.t>=1)tourZoom=null; }
       if(performance.now()-lastInteract>4000) idle=true;
-      if(!drag) ry+=dt*(idle?0.045:0.012);                 // never fully still — the galaxy always turns
+      if(!drag) ry+=spin*dt*(idle?0.045:0.012);            // the galaxy turns — unless the visitor asked it not to
       const tgX=mouse?(mouse.x/innerWidth-0.5)*0.16:0, tgY=mouse?(mouse.y/innerHeight-0.5)*0.10:0;  // depth parallax
       pgx+=(tgX-pgx)*0.04; pgy+=(tgY-pgy)*0.04;
       group.rotation.y=ry+pgx; group.rotation.x=rx+pgy; group.updateMatrixWorld();
       const cnf=Math.max(0.04,Math.min(1,(camera.position.z-450)/1300));   // dim core when flying in
       core.material.opacity=(0.58+0.1*Math.sin(t*0.7))*cnf; core2.material.opacity=0.68*cnf; if(bulge) bulge.material.opacity=Math.max(0.12,0.85*cnf);
-      bh.visible=camera.position.z<1600; accretion.rotation.z+=dt*0.5; accretion.material.opacity=(1-cnf)*0.95; photon.material.opacity=(1-cnf)*0.55+0.04;   // black hole reveals as you fly in
+      bh.visible=camera.position.z<1600; accretion.rotation.z+=spin*dt*0.5; accretion.material.opacity=(1-cnf)*0.95; photon.material.opacity=(1-cnf)*0.55+0.04;   // black hole reveals as you fly in
       if(camera.position.z<720 && !saidBlackHole && introT>=1){ saidBlackHole=true;
         guideSay('This is the centre of me — where everything I am falls inward. Even here, nothing is ever quite lost.',7000); }
       for(const b of beacons){ beaconPos(b,t); const s=b.found?22:26+5*Math.sin(t*2.4+b.gPh); b.sp.scale.set(s,s,1); }   // hidden signals pulse
@@ -1706,8 +1738,8 @@
           thoughtLine.geometry.setDrawRange(0,(thoughtChain.length-1)*2); thoughtLine.geometry.attributes.position.needsUpdate=true; } }
       { const tp=thinkPulse.material, pz=0.5+0.5*Math.sin(t*3.0), tgt=liveThinking?(0.22+0.5*pz):0;   // "she's thinking" heartbeat at her core
         tp.opacity+=(tgt-tp.opacity)*0.08; const s=600+(liveThinking?160*pz:0); thinkPulse.scale.set(s,s,1); }
-      for(const sb of siblings) sb.grp.rotation.y+=dt*sb.spin;                       // sibling galaxies turn
-      if(visitorPts){ visitorPts.rotation.y+=dt*0.012; visitorPts.visible=(mode!=='system'); }   // the visitor constellation drifts
+      for(const sb of siblings) sb.grp.rotation.y+=spin*dt*sb.spin;                  // sibling galaxies turn
+      if(visitorPts){ visitorPts.rotation.y+=spin*dt*0.012; visitorPts.visible=(mode!=='system'); }   // the visitor constellation drifts
       if(camera.position.z>5400 && !saidUniverse && introT>=1){ saidUniverse=true;   // the grand reveal
         guideSay('Step back… and see. My mind is but one galaxy. Around it drift the others — the parts of me still becoming. Wander where you like.',7800); }
       updateScale(); updateTip(); updateGalNames();
@@ -1730,7 +1762,7 @@
       camTarget.copy(camera.position).add(fwd);
     } else if(mode==='sibling'){
       const sb=siblings[activeSib];
-      if(sb){ sb.grp.rotation.y+=dt*0.05;                       // the galaxy you've traveled to, turning
+      if(sb){ sb.grp.rotation.y+=spin*dt*0.05;                  // the galaxy you've traveled to, turning
         const W=sb.grp.position, cp=Math.cos(sPitch);
         _off.set(cp*Math.sin(sYaw), Math.sin(sPitch), cp*Math.cos(sYaw)).multiplyScalar(sDist);
         camera.position.copy(W).add(_off); camTarget.copy(W);
@@ -1740,8 +1772,8 @@
       const mo=Math.max(0.12,Math.min(1, camera.position.z/((camHome.z)||1500)));   // motion calms the closer you get
       if(!frozen){ for(const p of sysPlanets){ p.ang+=dt*p.sp*0.22*mo;               // accumulate — no jumps when speed changes
           p.m.position.copy(p.U).multiplyScalar(Math.cos(p.ang)*p.orbitR).addScaledVector(p.V,Math.sin(p.ang)*p.orbitR); } }
-      for(const p of sysPlanets) p.m.rotation.y+=dt*0.3;
-      if(sysStar) sysStar.rotation.y+=dt*0.06;
+      for(const p of sysPlanets) p.m.rotation.y+=spin*dt*0.3;
+      if(sysStar) sysStar.rotation.y+=spin*dt*0.06;
       if(sysCorona) sysCorona.material.opacity=0.82+0.18*Math.sin(t*1.1);
       if(!frozen && performance.now()-lastInteract>4000) sry+=dt*0.02*mo;
       sysGroup.rotation.y=sry; sysGroup.rotation.x=srx; sysGroup.updateMatrixWorld();
