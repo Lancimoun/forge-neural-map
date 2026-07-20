@@ -37,6 +37,21 @@ docker run -p 8080:8080 -e PORT=8080 neural-map
 ```
 …or serve the folder statically and open `index.html`.
 
+## Verify a release
+After a deployment, run the same provider-free contract used in CI against the
+public static artifacts:
+
+```bash
+python verify_release.py
+```
+
+The verifier performs only two read-only GETs (`/` and `/nodes.json`). It checks
+the accessible search and flight telemetry, the recovered Ask Maxima / visitor
+star / thought-HUD hooks, reduced-motion behavior, and the exact
+**2,778 / 7,295 / 157** graph counts. It does not submit a form, use an API key,
+or call an AI provider. Use `--base-url http://localhost:8080` for a local
+container or static server.
+
 ## Stack
 `three.js` · `GLSL` · `Web Audio API` · `Web Speech API` · `Python` · `Docker` · `nginx` · `Railway`
 
