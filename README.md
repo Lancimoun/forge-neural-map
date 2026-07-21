@@ -1,11 +1,24 @@
-# FORGE · Neural Map — The mind of Maxima
+<h1 align="center">FORGE · Neural Map</h1>
+<p align="center"><strong>The mind of Maxima</strong> — an explorable 3D universe of an AI's mind, narrated by the AI herself.</p>
 
-[![CI](https://github.com/Lancimoun/forge-neural-map/actions/workflows/ci.yml/badge.svg)](https://github.com/Lancimoun/forge-neural-map/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+<p align="center">
+  <a href="https://github.com/Lancimoun/forge-neural-map/actions/workflows/ci.yml"><img src="https://github.com/Lancimoun/forge-neural-map/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <img src="https://img.shields.io/badge/three.js-r128-000000?style=flat-square&logo=threedotjs&logoColor=white" alt="three.js r128">
+  <img src="https://img.shields.io/badge/GLSL-shaders-5586A4?style=flat-square" alt="GLSL shaders">
+  <img src="https://img.shields.io/badge/Python-bake-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python bake">
+  <img src="https://img.shields.io/badge/Docker-nginx-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker / nginx">
+  <img src="https://img.shields.io/badge/Railway-live-0B0D0E?style=flat-square&logo=railway&logoColor=white" alt="Railway">
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License: MIT">
+</p>
 
-> An explorable 3D **universe of an AI's mind**, narrated by the AI herself.
+<p align="center">
+  <a href="https://forge-neural-map-production.up.railway.app"><strong>▶ Live demo</strong></a> <em>(sound on)</em> ·
+  <a href="#what-it-is">What it is</a> ·
+  <a href="#how-its-built">How it's built</a> ·
+  <a href="#verify-a-release">Verify</a>
+</p>
 
-**▶ Live demo:** https://forge-neural-map-production.up.railway.app  *(sound on)*
+---
 
 ![The mind of Maxima](og.png)
 
