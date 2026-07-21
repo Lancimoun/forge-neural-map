@@ -56,4 +56,4 @@ container or static server.
 `three.js` · `GLSL` · `Web Audio API` · `Web Speech API` · `Python` · `Docker` · `nginx` · `Railway`
 
 ---
-Built by **[Lance](https://github.com/Lancimoun)** · part of **FORGE** — building AI you can watch think.
+Built by **[Architect L.](https://github.com/Lancimoun)** · part of **FORGE** — building AI you can watch think.
