@@ -68,5 +68,10 @@ container or static server.
 ## Stack
 `three.js` · `GLSL` · `Web Audio API` · `Web Speech API` · `Python` · `Docker` · `nginx` · `Railway`
 
+
+## Further reading
+
+[**Writing on AI reliability**](https://lancimoun.github.io/writing/) — how autonomous systems fail quietly, and the mechanisms that catch them. Every incident dated, with the measurements.
+
 ---
 Built by **[Architect L.](https://github.com/Lancimoun)** · part of **FORGE** — building AI you can watch think.
