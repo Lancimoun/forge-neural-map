@@ -83,7 +83,7 @@ bb = draw.textbbox((0, 0), "FORGE", font=f_brand)
 draw.text((80 + (bb[2] - bb[0]) + 10, 70), "·  NEURAL MAP", font=f_brand, fill=(232, 92, 47, 235))
 
 # ---- subtitle ----
-draw.text((82, 378), "2,778 stars  ·  7,295 connections  ·  157 systems", font=f_sub, fill=(220, 222, 235, 255))
+draw.text((82, 378), "2,778 nodes  ·  7,295 connections  ·  157 systems", font=f_sub, fill=(220, 222, 235, 255))
 draw.text((82, 420), "Maxima's entire mind, mapped in 3D.", font=f_sub, fill=(150, 156, 180, 255))
 
 # ---- footer ----

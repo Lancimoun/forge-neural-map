@@ -25,7 +25,7 @@
 I took **Maxima** — a production AI agent built at [FORGE](https://forge-landing-production.up.railway.app) — and rendered her entire codebase as an explorable galaxy. Then I made *her* your guide through it.
 
 ## What it is
-- **2,778 stars · 7,295 connections · 157 systems** — every function and file in her code, mapped from a real knowledge graph.
+- **2,778 nodes · 7,295 connections · 157 systems** — every function and file in her code, mapped from a real knowledge graph and drawn as a star field.
 - **Five scales of exploration:** fly the galaxy → warp into a star → orbit its planets → drop to a planet's surface → zoom out to a universe of sibling galaxies (Memory, Voice, Reasoning, Soul, Dreams).
 - **Maxima narrates it** — a cinematic, voiced guide (Web Speech) that welcomes you and explains what each part of her is.
 - **Watch Maxima think** — six guided prompts illuminate real routing paths; optional live mode stays private and key-gated in the browser.

@@ -113,11 +113,34 @@ class ReadmeMatchesTheData(unittest.TestCase):
         )
         return int(m.group(1).replace(",", ""))
 
-    def test_star_count_matches(self):
+    def test_node_count_matches(self):
         self.assertEqual(
-            self._stated("stars"), self.actual["nodes"],
-            "README advertises a star count that nodes.json does not contain. "
+            self._stated("nodes"), self.actual["nodes"],
+            "README advertises a node count that nodes.json does not contain. "
             "This number is also on Lance's GitHub profile front door.",
+        )
+
+    def test_the_headline_count_is_not_called_stars(self):
+        """On GitHub, "stars" is not an available word.
+
+        The app calls these objects stars about 130 times and that is the right
+        name inside a star field. But this README renders on a page that prints
+        GitHub's own star count a few centimetres above it, and the line read
+        "2,778 stars" on a repository with 0 -- true in the app's vocabulary and
+        a large false boast in the reader's.
+
+        The profile README and the portfolio already said "2,778 nodes". Only
+        the repo's own front page used the colliding word, on the one surface
+        where the collision exists.
+
+        The metaphor is kept in the prose ("drawn as a star field"); only the
+        counted noun changed.
+        """
+        headline = re.search(r"^- \*\*[\d,]+ .*$", self.text, re.M)
+        self.assertIsNotNone(headline, "the headline bullet has gone")
+        self.assertNotRegex(
+            headline.group(0), r"(?i)[\d,]+\s*stars\b",
+            "the headline count is back to a GitHub-reserved word",
         )
 
     def test_connection_count_matches(self):
